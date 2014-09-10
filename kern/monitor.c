@@ -76,7 +76,7 @@ mon_backtrace(int argc, char **argv, struct Trapframe *tf)
 //	rip = (uint64_t *)*(rbp + 1);
 	debuginfo_rip((uintptr_t)rip,info);
 	cprintf("\n rbp %016x rip %016x\n", rbp,rip);
-	cprintf("%s%d: ", info->rip_file,info->rip_line);
+	cprintf("%s:%d: ", info->rip_file,info->rip_line);
 	cprintf("%.*s",info->rip_fn_namelen,info->rip_fn_name);
 	cprintf("+%016x args:%d ",((uintptr_t)rip-info->rip_fn_addr),info->rip_fn_narg);
 	x=rbp;
