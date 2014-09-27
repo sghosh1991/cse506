@@ -40,6 +40,7 @@ syscall(int num, int check, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 void
 sys_cputs(const char *s, size_t len)
 {
+	cprintf("in lib/syscall.c");
 	syscall(SYS_cputs, 0, (uint64_t)s, len, 0, 0, 0);
 }
 

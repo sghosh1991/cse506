@@ -211,23 +211,24 @@ trap_dispatch(struct Trapframe *tf)
 {
 	// Handle processor exceptions.
 	// LAB 3: Your code here.
-	int64_t syscall_return;
-
-	if (tf->tf_trapno == T_PGFLT)
-		page_fault_handler(tf);
-	if (tf->tf_trapno == T_BRKPT)
-		monitor(tf);
-
-	if (tf->tf_trapno == T_SYSCALL) {
-		int64_t syscall_return = syscall(
-			tf->tf_regs.reg_rax, tf->tf_regs.reg_rdx,
-			tf->tf_regs.reg_rcx, tf->tf_regs.reg_rbx,
-			tf->tf_regs.reg_rdi, tf->tf_regs.reg_rsi);
-		// uint32_t syscall_ret32 = (uint32_t) syscall_return;
-		tf->tf_regs.reg_rax = syscall_return;
-		return;
-	}
-
+	switch (tf->tf_trapno) {
+    case T_PGFLT:
+        page_fault_handler(tf);
+        break; 
+   case T_BRKPT:
+        print_trapframe(tf);
+        monitor(tf);
+        break;
+    case T_SYSCALL:
+        tf->tf_regs.reg_rax = syscall(
+            tf->tf_regs.reg_rax,
+            tf->tf_regs.reg_rdx,
+            tf->tf_regs.reg_rcx,
+            tf->tf_regs.reg_rbx,
+            tf->tf_regs.reg_rdi,
+            tf->tf_regs.reg_rsi);
+        break;
+	default:
 	// Unexpected trap: The user process or the kernel has a bug.
 	print_trapframe(tf);
 	if (tf->tf_cs == GD_KT)
@@ -236,6 +237,7 @@ trap_dispatch(struct Trapframe *tf)
 		env_destroy(curenv);
 		return;
 	}
+}
 }
 
 void
