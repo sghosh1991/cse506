@@ -213,8 +213,11 @@ trap_dispatch(struct Trapframe *tf)
 	// LAB 3: Your code here.
 	int64_t syscall_return;
 
-	if (tf->tf_trapno == T_PGFLT)
+	if (tf->tf_trapno == T_PGFLT) {
 		page_fault_handler(tf);
+		return;
+	}
+
 	if (tf->tf_trapno == T_BRKPT)
 		monitor(tf);
 

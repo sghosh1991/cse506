@@ -359,23 +359,8 @@ load_icode(struct Env *e, uint8_t *binary)
 		}
 		region_alloc(e, (void*) (USTACKTOP - PGSIZE), PGSIZE);
 		e->env_tf.tf_rip    = elf->e_entry;
-		e->env_tf.tf_rsp    = USTACKTOP; //keeping stack 8 byte aligned
-
-        /*uintptr_t debug_address = USTABDATA;
-        struct Secthdr *sh = (struct Secthdr *)(((uint8_t *)elf + elf->e_shoff));
-        struct Secthdr *shstr_tab = sh + elf->e_shstrndx;
-        struct Secthdr* esh = sh + elf->e_shnum;
-        for(;sh < esh; sh++) {
-            char* name = (char*)((uint8_t*)elf + shstr_tab->sh_offset) + sh->sh_name;
-            if(!strcmp(name, ".debug_info") || !strcmp(name, ".debug_abbrev")
-                    || !strcmp(name, ".debug_line") || !strcmp(name, ".eh_frame")
-                    || !strcmp(name, ".debug_str")) {
-                region_alloc(e ,(void*)debug_address, sh->sh_size);
-                memcpy((void *)debug_address, (void *)((uint8_t *)elf + sh->sh_offset), 
-                        sh->sh_size);
-                debug_address += sh->sh_size;
-            }
-        }*/
+		e->env_tf.tf_rsp    = USTACKTOP;
+        
 		lcr3(boot_cr3);
 	} else {
 		panic("Invalid Binary");

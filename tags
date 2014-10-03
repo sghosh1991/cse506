@@ -7,7 +7,7 @@
 -format	GNUmakefile	/^	git archive --format=tar HEAD | gzip > lab$(LAB)-handin.tar.gz$/;"	m
 ADDRESS	kern/libdwarf_lineno.c	214;"	d	file:
 ADDRESS	kern/libdwarf_lineno.c	95;"	d	file:
-ALLOC_ZERO	kern/pmap.h	/^	ALLOC_ZERO = 1<<0,$/;"	e	enum:__anon17
+ALLOC_ZERO	kern/pmap.h	/^	ALLOC_ZERO = 1<<0,$/;"	e	enum:__anon13
 ALT	kern/console.c	218;"	d	file:
 APPEND_HILO	kern/multiboot.h	18;"	d
 APPEND_ROW	kern/libdwarf_lineno.c	212;"	d	file:
@@ -33,8 +33,8 @@ ASM	obj/user/testbss.asm	/^#define ASM 1$/;"	d
 BACKTRACE_RE	grade-lab1	/^BACKTRACE_RE = r"^ *rbp +00000080042[0-9a-z]{5} +rip +000000800420[0-1][0-9a-z]{3}"$/;"	v
 BOOT_CFLAGS	GNUmakefile	/^BOOT_CFLAGS := $(CFLAGS) -DJOS_KERNEL -gdwarf-2 -m32$/;"	m
 BOOT_LDFLAGS	GNUmakefile	/^BOOT_LDFLAGS := -m elf_i386$/;"	m
-BOOT_PAGE_TABLE_END	kern/pmap.c	16;"	d	file:
-BOOT_PAGE_TABLE_START	kern/pmap.c	15;"	d	file:
+BOOT_PAGE_TABLE_END	kern/pmap.c	18;"	d	file:
+BOOT_PAGE_TABLE_START	kern/pmap.c	17;"	d	file:
 BUFLEN	lib/readline.c	4;"	d	file:
 BUFLEN	obj/kern/kernel.asm	/^#define BUFLEN 1024$/;"	d
 C	kern/console.c	285;"	d	file:
@@ -99,11 +99,11 @@ CRT_SIZE	kern/console.h	18;"	d
 CTL	kern/console.c	217;"	d	file:
 CURRENT_TEST	gradelib.py	/^CURRENT_TEST = None$/;"	v
 Command	kern/monitor.c	/^struct Command {$/;"	s	file:
-DEBUG_ABBREV	kern/elf_rw.c	/^	DEBUG_ABBREV,$/;"	e	enum:__anon15	file:
-DEBUG_FRAME	kern/elf_rw.c	/^	DEBUG_FRAME,$/;"	e	enum:__anon15	file:
-DEBUG_INFO	kern/elf_rw.c	/^	DEBUG_INFO,$/;"	e	enum:__anon15	file:
-DEBUG_LINE	kern/elf_rw.c	/^	DEBUG_LINE,$/;"	e	enum:__anon15	file:
-DEBUG_STR	kern/elf_rw.c	/^	DEBUG_STR,$/;"	e	enum:__anon15	file:
+DEBUG_ABBREV	kern/elf_rw.c	/^	DEBUG_ABBREV,$/;"	e	enum:__anon11	file:
+DEBUG_FRAME	kern/elf_rw.c	/^	DEBUG_FRAME,$/;"	e	enum:__anon11	file:
+DEBUG_INFO	kern/elf_rw.c	/^	DEBUG_INFO,$/;"	e	enum:__anon11	file:
+DEBUG_LINE	kern/elf_rw.c	/^	DEBUG_LINE,$/;"	e	enum:__anon11	file:
+DEBUG_STR	kern/elf_rw.c	/^	DEBUG_STR,$/;"	e	enum:__anon11	file:
 DWARF_API_H	kern/dwarf_api.h	2;"	d
 DWARF_ERROR_H_	kern/dwarf_error.h	2;"	d
 DWARF_H	kern/dwarf.h	2;"	d
@@ -262,36 +262,36 @@ DW_CFA_val_offset	kern/dwarf_define.h	518;"	d
 DW_CFA_val_offset_sf	kern/dwarf_define.h	519;"	d
 DW_CHILDREN_no	kern/dwarf_define.h	96;"	d
 DW_CHILDREN_yes	kern/dwarf_define.h	97;"	d
-DW_DLE_ARANGE_OFFSET_BAD	kern/dwarf_error.h	/^        DW_DLE_ARANGE_OFFSET_BAD,       \/* Invalid arange offset. *\/$/;"	e	enum:__anon19
-DW_DLE_ARGUMENT	kern/dwarf_error.h	/^        DW_DLE_ARGUMENT,                \/* Invalid argument. *\/$/;"	e	enum:__anon19
-DW_DLE_ATTR_FORM_BAD	kern/dwarf_error.h	/^        DW_DLE_ATTR_FORM_BAD,           \/* Invalid attribute form. *\/$/;"	e	enum:__anon19
-DW_DLE_CU_LENGTH_ERROR	kern/dwarf_error.h	/^        DW_DLE_CU_LENGTH_ERROR,         \/* Invalid compilation unit data. *\/$/;"	e	enum:__anon19
-DW_DLE_DEBUG_ABBREV_NULL	kern/dwarf_error.h	/^        DW_DLE_DEBUG_ABBREV_NULL,       \/* Abbrev not found. *\/$/;"	e	enum:__anon19
-DW_DLE_DEBUG_FRAME_LENGTH_BAD	kern/dwarf_error.h	/^        DW_DLE_DEBUG_FRAME_LENGTH_BAD,  \/* Frame section too short. *\/$/;"	e	enum:__anon19
-DW_DLE_DEBUG_INFO_NULL	kern/dwarf_error.h	/^        DW_DLE_DEBUG_INFO_NULL,         \/* Debug info NULL. *\/$/;"	e	enum:__anon19
-DW_DLE_DEBUG_LINE_LENGTH_BAD	kern/dwarf_error.h	/^        DW_DLE_DEBUG_LINE_LENGTH_BAD,   \/* Line info section too short. *\/$/;"	e	enum:__anon19
-DW_DLE_DEBUG_LOC_SECTION_SHORT	kern/dwarf_error.h	/^        DW_DLE_DEBUG_LOC_SECTION_SHORT, \/* Loclist section too short. *\/$/;"	e	enum:__anon19
-DW_DLE_DEBUG_MACRO_INCONSISTENT	kern/dwarf_error.h	/^        DW_DLE_DEBUG_MACRO_INCONSISTENT,\/* Invalid macinfo data. *\/$/;"	e	enum:__anon19
-DW_DLE_DF_REG_NUM_TOO_HIGH	kern/dwarf_error.h	/^        DW_DLE_DF_REG_NUM_TOO_HIGH,     \/* Insufficient regtable space. *\/$/;"	e	enum:__anon19
-DW_DLE_DIE_NO_CU_CONTEXT	kern/dwarf_error.h	/^        DW_DLE_DIE_NO_CU_CONTEXT,       \/* No current compilation unit. *\/$/;"	e	enum:__anon19
-DW_DLE_DIR_INDEX_BAD	kern/dwarf_error.h	/^        DW_DLE_DIR_INDEX_BAD,           \/* Invalid dir index. *\/$/;"	e	enum:__anon19
-DW_DLE_ELF	kern/dwarf_error.h	/^        DW_DLE_ELF,                     \/* ELF error. *\/$/;"	e	enum:__anon19
-DW_DLE_ELF_SECT_ERR	kern/dwarf_error.h	/^        DW_DLE_ELF_SECT_ERR,            \/* Application callback failed. *\/$/;"	e	enum:__anon19
-DW_DLE_ERROR	kern/dwarf_error.h	/^        DW_DLE_ERROR,                   \/* An error! *\/$/;"	e	enum:__anon19
-DW_DLE_EXPR_LENGTH_BAD	kern/dwarf_error.h	/^        DW_DLE_EXPR_LENGTH_BAD,         \/* Invalid DWARF expression. *\/$/;"	e	enum:__anon19
-DW_DLE_FRAME_AUGMENTATION_UNKNOWN	kern/dwarf_error.h	/^        DW_DLE_FRAME_AUGMENTATION_UNKNOWN, \/* Unknown CIE augmentation. *\/$/;"	e	enum:__anon19
-DW_DLE_FRAME_INSTR_EXEC_ERROR	kern/dwarf_error.h	/^        DW_DLE_FRAME_INSTR_EXEC_ERROR,  \/* Frame instruction exec error. *\/$/;"	e	enum:__anon19
-DW_DLE_FRAME_TABLE_COL_BAD	kern/dwarf_error.h	/^        DW_DLE_FRAME_TABLE_COL_BAD,     \/* Invalid table column. *\/$/;"	e	enum:__anon19
-DW_DLE_FRAME_VERSION_BAD	kern/dwarf_error.h	/^        DW_DLE_FRAME_VERSION_BAD,       \/* Invalid frame section version. *\/$/;"	e	enum:__anon19
-DW_DLE_LINE_FILE_NUM_BAD	kern/dwarf_error.h	/^        DW_DLE_LINE_FILE_NUM_BAD,       \/* Invalid file number. *\/$/;"	e	enum:__anon19
-DW_DLE_LOC_EXPR_BAD	kern/dwarf_error.h	/^        DW_DLE_LOC_EXPR_BAD,            \/* Invalid location expression. *\/$/;"	e	enum:__anon19
-DW_DLE_MEMORY	kern/dwarf_error.h	/^        DW_DLE_MEMORY,                  \/* Insufficient memory. *\/$/;"	e	enum:__anon19
-DW_DLE_NONE	kern/dwarf_error.h	/^        DW_DLE_NONE,                    \/* No error. *\/$/;"	e	enum:__anon19
-DW_DLE_NO_CIE_FOR_FDE	kern/dwarf_error.h	/^        DW_DLE_NO_CIE_FOR_FDE,          \/* CIE not found for certain FDE. *\/$/;"	e	enum:__anon19
-DW_DLE_NO_ENTRY	kern/dwarf_error.h	/^        DW_DLE_NO_ENTRY,                \/* No entry. *\/$/;"	e	enum:__anon19
-DW_DLE_NUM	kern/dwarf_error.h	/^        DW_DLE_NUM                      \/* Max error number. *\/$/;"	e	enum:__anon19
-DW_DLE_PC_NOT_IN_FDE_RANGE	kern/dwarf_error.h	/^        DW_DLE_PC_NOT_IN_FDE_RANGE,     \/* PC requested not in the FDE range. *\/$/;"	e	enum:__anon19
-DW_DLE_VERSION_STAMP_ERROR	kern/dwarf_error.h	/^        DW_DLE_VERSION_STAMP_ERROR,     \/* Invalid version. *\/$/;"	e	enum:__anon19
+DW_DLE_ARANGE_OFFSET_BAD	kern/dwarf_error.h	/^        DW_DLE_ARANGE_OFFSET_BAD,       \/* Invalid arange offset. *\/$/;"	e	enum:__anon15
+DW_DLE_ARGUMENT	kern/dwarf_error.h	/^        DW_DLE_ARGUMENT,                \/* Invalid argument. *\/$/;"	e	enum:__anon15
+DW_DLE_ATTR_FORM_BAD	kern/dwarf_error.h	/^        DW_DLE_ATTR_FORM_BAD,           \/* Invalid attribute form. *\/$/;"	e	enum:__anon15
+DW_DLE_CU_LENGTH_ERROR	kern/dwarf_error.h	/^        DW_DLE_CU_LENGTH_ERROR,         \/* Invalid compilation unit data. *\/$/;"	e	enum:__anon15
+DW_DLE_DEBUG_ABBREV_NULL	kern/dwarf_error.h	/^        DW_DLE_DEBUG_ABBREV_NULL,       \/* Abbrev not found. *\/$/;"	e	enum:__anon15
+DW_DLE_DEBUG_FRAME_LENGTH_BAD	kern/dwarf_error.h	/^        DW_DLE_DEBUG_FRAME_LENGTH_BAD,  \/* Frame section too short. *\/$/;"	e	enum:__anon15
+DW_DLE_DEBUG_INFO_NULL	kern/dwarf_error.h	/^        DW_DLE_DEBUG_INFO_NULL,         \/* Debug info NULL. *\/$/;"	e	enum:__anon15
+DW_DLE_DEBUG_LINE_LENGTH_BAD	kern/dwarf_error.h	/^        DW_DLE_DEBUG_LINE_LENGTH_BAD,   \/* Line info section too short. *\/$/;"	e	enum:__anon15
+DW_DLE_DEBUG_LOC_SECTION_SHORT	kern/dwarf_error.h	/^        DW_DLE_DEBUG_LOC_SECTION_SHORT, \/* Loclist section too short. *\/$/;"	e	enum:__anon15
+DW_DLE_DEBUG_MACRO_INCONSISTENT	kern/dwarf_error.h	/^        DW_DLE_DEBUG_MACRO_INCONSISTENT,\/* Invalid macinfo data. *\/$/;"	e	enum:__anon15
+DW_DLE_DF_REG_NUM_TOO_HIGH	kern/dwarf_error.h	/^        DW_DLE_DF_REG_NUM_TOO_HIGH,     \/* Insufficient regtable space. *\/$/;"	e	enum:__anon15
+DW_DLE_DIE_NO_CU_CONTEXT	kern/dwarf_error.h	/^        DW_DLE_DIE_NO_CU_CONTEXT,       \/* No current compilation unit. *\/$/;"	e	enum:__anon15
+DW_DLE_DIR_INDEX_BAD	kern/dwarf_error.h	/^        DW_DLE_DIR_INDEX_BAD,           \/* Invalid dir index. *\/$/;"	e	enum:__anon15
+DW_DLE_ELF	kern/dwarf_error.h	/^        DW_DLE_ELF,                     \/* ELF error. *\/$/;"	e	enum:__anon15
+DW_DLE_ELF_SECT_ERR	kern/dwarf_error.h	/^        DW_DLE_ELF_SECT_ERR,            \/* Application callback failed. *\/$/;"	e	enum:__anon15
+DW_DLE_ERROR	kern/dwarf_error.h	/^        DW_DLE_ERROR,                   \/* An error! *\/$/;"	e	enum:__anon15
+DW_DLE_EXPR_LENGTH_BAD	kern/dwarf_error.h	/^        DW_DLE_EXPR_LENGTH_BAD,         \/* Invalid DWARF expression. *\/$/;"	e	enum:__anon15
+DW_DLE_FRAME_AUGMENTATION_UNKNOWN	kern/dwarf_error.h	/^        DW_DLE_FRAME_AUGMENTATION_UNKNOWN, \/* Unknown CIE augmentation. *\/$/;"	e	enum:__anon15
+DW_DLE_FRAME_INSTR_EXEC_ERROR	kern/dwarf_error.h	/^        DW_DLE_FRAME_INSTR_EXEC_ERROR,  \/* Frame instruction exec error. *\/$/;"	e	enum:__anon15
+DW_DLE_FRAME_TABLE_COL_BAD	kern/dwarf_error.h	/^        DW_DLE_FRAME_TABLE_COL_BAD,     \/* Invalid table column. *\/$/;"	e	enum:__anon15
+DW_DLE_FRAME_VERSION_BAD	kern/dwarf_error.h	/^        DW_DLE_FRAME_VERSION_BAD,       \/* Invalid frame section version. *\/$/;"	e	enum:__anon15
+DW_DLE_LINE_FILE_NUM_BAD	kern/dwarf_error.h	/^        DW_DLE_LINE_FILE_NUM_BAD,       \/* Invalid file number. *\/$/;"	e	enum:__anon15
+DW_DLE_LOC_EXPR_BAD	kern/dwarf_error.h	/^        DW_DLE_LOC_EXPR_BAD,            \/* Invalid location expression. *\/$/;"	e	enum:__anon15
+DW_DLE_MEMORY	kern/dwarf_error.h	/^        DW_DLE_MEMORY,                  \/* Insufficient memory. *\/$/;"	e	enum:__anon15
+DW_DLE_NONE	kern/dwarf_error.h	/^        DW_DLE_NONE,                    \/* No error. *\/$/;"	e	enum:__anon15
+DW_DLE_NO_CIE_FOR_FDE	kern/dwarf_error.h	/^        DW_DLE_NO_CIE_FOR_FDE,          \/* CIE not found for certain FDE. *\/$/;"	e	enum:__anon15
+DW_DLE_NO_ENTRY	kern/dwarf_error.h	/^        DW_DLE_NO_ENTRY,                \/* No entry. *\/$/;"	e	enum:__anon15
+DW_DLE_NUM	kern/dwarf_error.h	/^        DW_DLE_NUM                      \/* Max error number. *\/$/;"	e	enum:__anon15
+DW_DLE_PC_NOT_IN_FDE_RANGE	kern/dwarf_error.h	/^        DW_DLE_PC_NOT_IN_FDE_RANGE,     \/* PC requested not in the FDE range. *\/$/;"	e	enum:__anon15
+DW_DLE_VERSION_STAMP_ERROR	kern/dwarf_error.h	/^        DW_DLE_VERSION_STAMP_ERROR,     \/* Invalid version. *\/$/;"	e	enum:__anon15
 DW_DLV_ERROR	kern/dwarf_error.h	6;"	d
 DW_DLV_NO_ENTRY	kern/dwarf_error.h	4;"	d
 DW_DLV_OK	kern/dwarf_error.h	5;"	d
@@ -411,8 +411,8 @@ DW_MACINFO_end_file	kern/dwarf_define.h	490;"	d
 DW_MACINFO_start_file	kern/dwarf_define.h	489;"	d
 DW_MACINFO_undef	kern/dwarf_define.h	488;"	d
 DW_MACINFO_vendor_ext	kern/dwarf_define.h	491;"	d
-DW_OBJECT_LSB	kern/dwarf.h	/^    DW_OBJECT_LSB$/;"	e	enum:__anon12
-DW_OBJECT_MSB	kern/dwarf.h	/^    DW_OBJECT_MSB,$/;"	e	enum:__anon12
+DW_OBJECT_LSB	kern/dwarf.h	/^    DW_OBJECT_LSB$/;"	e	enum:__anon8
+DW_OBJECT_MSB	kern/dwarf.h	/^    DW_OBJECT_MSB,$/;"	e	enum:__anon8
 DW_OP_GNU_push_tls_address	kern/dwarf_define.h	379;"	d
 DW_OP_abs	kern/dwarf_define.h	243;"	d
 DW_OP_addr	kern/dwarf_define.h	224;"	d
@@ -662,13 +662,13 @@ Dwarf_Abbrev	kern/dwarf.h	/^}Dwarf_Abbrev;$/;"	t	typeref:struct:_Dwarf_Abbrev
 Dwarf_Addr	kern/dwarf.h	/^typedef uint64_t        Dwarf_Addr;$/;"	t
 Dwarf_AttrDef	kern/dwarf.h	/^}Dwarf_AttrDef;$/;"	t	typeref:struct:_Dwarf_AttrDef
 Dwarf_Attribute	kern/dwarf.h	/^}Dwarf_Attribute;$/;"	t	typeref:struct:_Dwarf_Attribute
-Dwarf_Block	kern/dwarf.h	/^} Dwarf_Block;$/;"	t	typeref:struct:__anon10
+Dwarf_Block	kern/dwarf.h	/^} Dwarf_Block;$/;"	t	typeref:struct:__anon6
 Dwarf_Bool	kern/dwarf.h	/^typedef int             Dwarf_Bool;$/;"	t
 Dwarf_CU	kern/dwarf.h	/^}Dwarf_CU;$/;"	t	typeref:struct:_Dwarf_CU
 Dwarf_Cie	kern/dwarf.h	/^typedef struct _Dwarf_Cie       *Dwarf_Cie;$/;"	t	typeref:struct:_Dwarf_Cie
 Dwarf_Debug	kern/dwarf.h	/^typedef struct _Dwarf_Debug     *Dwarf_Debug;$/;"	t	typeref:struct:_Dwarf_Debug
 Dwarf_Die	kern/dwarf.h	/^}Dwarf_Die;$/;"	t	typeref:struct:_Dwarf_Die
-Dwarf_Endianness	kern/dwarf.h	/^} Dwarf_Endianness;$/;"	t	typeref:enum:__anon12
+Dwarf_Endianness	kern/dwarf.h	/^} Dwarf_Endianness;$/;"	t	typeref:enum:__anon8
 Dwarf_Endianness	obj/kern/kernel.asm	/^Dwarf_Endianness$/;"	l
 Dwarf_Error	kern/dwarf.h	/^} Dwarf_Error;$/;"	t	typeref:struct:_Dwarf_Error
 Dwarf_Fde	kern/dwarf.h	/^typedef struct _Dwarf_Fde       *Dwarf_Fde;$/;"	t	typeref:struct:_Dwarf_Fde
@@ -676,14 +676,14 @@ Dwarf_Half	kern/dwarf.h	/^typedef uint16_t        Dwarf_Half;$/;"	t
 Dwarf_Half	obj/kern/kernel.asm	/^Dwarf_Half$/;"	l
 Dwarf_Line	kern/dwarf.h	/^typedef _Dwarf_Line     *Dwarf_Line;$/;"	t
 Dwarf_LineInfo	kern/dwarf.h	/^typedef _Dwarf_LineInfo  *Dwarf_LineInfo;$/;"	t
-Dwarf_Loc	kern/dwarf.h	/^} Dwarf_Loc;$/;"	t	typeref:struct:__anon8
-Dwarf_Locdesc	kern/dwarf.h	/^} Dwarf_Locdesc;  $/;"	t	typeref:struct:__anon9
+Dwarf_Loc	kern/dwarf.h	/^} Dwarf_Loc;$/;"	t	typeref:struct:__anon4
+Dwarf_Locdesc	kern/dwarf.h	/^} Dwarf_Locdesc;  $/;"	t	typeref:struct:__anon5
 Dwarf_Off	kern/dwarf.h	/^typedef off_t           Dwarf_Off;$/;"	t
 Dwarf_P_Fde	kern/dwarf.h	/^typedef struct _Dwarf_Fde       *Dwarf_P_Fde;$/;"	t	typeref:struct:_Dwarf_Fde
 Dwarf_Ptr	kern/dwarf.h	/^typedef void            *Dwarf_Ptr;$/;"	t
-Dwarf_Regtable	kern/dwarf.h	/^} Dwarf_Regtable;$/;"	t	typeref:struct:__anon13
-Dwarf_Regtable3	kern/dwarf.h	/^} Dwarf_Regtable3;$/;"	t	typeref:struct:__anon7
-Dwarf_Regtable_Entry3	kern/dwarf.h	/^} Dwarf_Regtable_Entry3;$/;"	t	typeref:struct:__anon6
+Dwarf_Regtable	kern/dwarf.h	/^} Dwarf_Regtable;$/;"	t	typeref:struct:__anon9
+Dwarf_Regtable3	kern/dwarf.h	/^} Dwarf_Regtable3;$/;"	t	typeref:struct:__anon3
+Dwarf_Regtable_Entry3	kern/dwarf.h	/^} Dwarf_Regtable_Entry3;$/;"	t	typeref:struct:__anon2
 Dwarf_Section	kern/dwarf.h	/^} Dwarf_Section;$/;"	t	typeref:struct:_Dwarf_Section
 Dwarf_Section	obj/kern/kernel.asm	/^Dwarf_Section *$/;"	l
 Dwarf_Signed	kern/dwarf.h	/^typedef int64_t         Dwarf_Signed;$/;"	t
@@ -728,21 +728,21 @@ ELF_SHT_SYMTAB	kern/dwarf_elf.h	130;"	d
 ENVGENSHIFT	kern/env.c	22;"	d	file:
 ENVX	inc/env.h	31;"	d
 ENV_CREATE	kern/env.h	28;"	d
-ENV_DYING	inc/env.h	/^	ENV_DYING,$/;"	e	enum:__anon3
-ENV_FREE	inc/env.h	/^	ENV_FREE = 0,$/;"	e	enum:__anon3
-ENV_NOT_RUNNABLE	inc/env.h	/^	ENV_NOT_RUNNABLE$/;"	e	enum:__anon3
+ENV_DYING	inc/env.h	/^	ENV_DYING,$/;"	e	enum:__anon18
+ENV_FREE	inc/env.h	/^	ENV_FREE = 0,$/;"	e	enum:__anon18
+ENV_NOT_RUNNABLE	inc/env.h	/^	ENV_NOT_RUNNABLE$/;"	e	enum:__anon18
 ENV_PASTE3	kern/env.h	26;"	d
-ENV_RUNNABLE	inc/env.h	/^	ENV_RUNNABLE,$/;"	e	enum:__anon3
-ENV_RUNNING	inc/env.h	/^	ENV_RUNNING,$/;"	e	enum:__anon3
+ENV_RUNNABLE	inc/env.h	/^	ENV_RUNNABLE,$/;"	e	enum:__anon18
+ENV_RUNNING	inc/env.h	/^	ENV_RUNNING,$/;"	e	enum:__anon18
 ENV_TYPE_USER	inc/env.h	/^	ENV_TYPE_USER = 0,$/;"	e	enum:EnvType
 EXTPHYSMEM	inc/memlayout.h	96;"	d
-E_BAD_ENV	inc/error.h	/^	E_BAD_ENV	= 2,	\/\/ Environment doesn't exist or otherwise$/;"	e	enum:__anon2
-E_FAULT	inc/error.h	/^	E_FAULT		= 6,	\/\/ Memory fault$/;"	e	enum:__anon2
-E_INVAL	inc/error.h	/^	E_INVAL		= 3,	\/\/ Invalid parameter$/;"	e	enum:__anon2
-E_NO_FREE_ENV	inc/error.h	/^	E_NO_FREE_ENV	= 5,	\/\/ Attempt to create a new environment beyond$/;"	e	enum:__anon2
-E_NO_MEM	inc/error.h	/^	E_NO_MEM	= 4,	\/\/ Request failed due to memory shortage$/;"	e	enum:__anon2
-E_NO_SYS	inc/error.h	/^	E_NO_SYS	= 7,	\/\/ Unimplemented system call$/;"	e	enum:__anon2
-E_UNSPECIFIED	inc/error.h	/^	E_UNSPECIFIED	= 1,	\/\/ Unspecified or unknown problem$/;"	e	enum:__anon2
+E_BAD_ENV	inc/error.h	/^	E_BAD_ENV	= 2,	\/\/ Environment doesn't exist or otherwise$/;"	e	enum:__anon17
+E_FAULT	inc/error.h	/^	E_FAULT		= 6,	\/\/ Memory fault$/;"	e	enum:__anon17
+E_INVAL	inc/error.h	/^	E_INVAL		= 3,	\/\/ Invalid parameter$/;"	e	enum:__anon17
+E_NO_FREE_ENV	inc/error.h	/^	E_NO_FREE_ENV	= 5,	\/\/ Attempt to create a new environment beyond$/;"	e	enum:__anon17
+E_NO_MEM	inc/error.h	/^	E_NO_MEM	= 4,	\/\/ Request failed due to memory shortage$/;"	e	enum:__anon17
+E_NO_SYS	inc/error.h	/^	E_NO_SYS	= 7,	\/\/ Unimplemented system call$/;"	e	enum:__anon17
+E_UNSPECIFIED	inc/error.h	/^	E_UNSPECIFIED	= 1,	\/\/ Unspecified or unknown problem$/;"	e	enum:__anon17
 Elf	inc/elf.h	/^struct Elf {$/;"	s
 Elf	kern/dwarf_elf.h	113;"	d
 Elf	kern/dwarf_elf.h	66;"	d
@@ -916,7 +916,7 @@ MAKE_TIMESTAMP	gradelib.py	/^MAKE_TIMESTAMP = 0$/;"	v
 MAX	inc/types.h	49;"	d
 MAXARGS	kern/monitor.c	106;"	d	file:
 MAXARGS	obj/kern/kernel.asm	/^#define MAXARGS 16$/;"	d
-MAXERROR	inc/error.h	/^	MAXERROR$/;"	e	enum:__anon2
+MAXERROR	inc/error.h	/^	MAXERROR$/;"	e	enum:__anon17
 MB_FLAG_MMAP	kern/multiboot.h	29;"	d
 MB_TYPE_ACPI_NVS	kern/multiboot.h	26;"	d
 MB_TYPE_ACPI_RECLM	kern/multiboot.h	25;"	d
@@ -937,7 +937,7 @@ NATTRDEF	kern/dwarf.h	4;"	d
 NATTRVAL	kern/dwarf.h	5;"	d
 NCC	GNUmakefile	/^NCC	:= gcc $(CC_VER) -pipe$/;"	m
 NCOMMANDS	kern/monitor.c	32;"	d	file:
-NDEBUG_SECT	kern/elf_rw.c	/^	NDEBUG_SECT,$/;"	e	enum:__anon15	file:
+NDEBUG_SECT	kern/elf_rw.c	/^	NDEBUG_SECT,$/;"	e	enum:__anon11	file:
 NENV	inc/env.h	30;"	d
 NM	GNUmakefile	/^NM	:= $(GCCPREFIX)nm$/;"	m
 NO	kern/console.c	214;"	d	file:
@@ -945,7 +945,7 @@ NPDENTRIES	inc/mmu.h	56;"	d
 NPDPENTRIES	inc/mmu.h	55;"	d
 NPMLENTRIES	inc/mmu.h	54;"	d
 NPTENTRIES	inc/mmu.h	57;"	d
-NSYSCALLS	inc/syscall.h	/^	NSYSCALLS$/;"	e	enum:__anon4
+NSYSCALLS	inc/syscall.h	/^	NSYSCALLS$/;"	e	enum:__anon19
 NULL	inc/stdio.h	7;"	d
 NULL	inc/types.h	5;"	d
 NUMLOCK	kern/console.c	221;"	d	file:
@@ -1085,16 +1085,16 @@ STS_LDT	inc/mmu.h	246;"	d
 STS_T64A	inc/mmu.h	252;"	d
 STS_T64B	inc/mmu.h	253;"	d
 STS_TG64	inc/mmu.h	256;"	d
-SYS_cgetc	inc/syscall.h	/^	SYS_cgetc,$/;"	e	enum:__anon4
-SYS_cputs	inc/syscall.h	/^	SYS_cputs = 0,$/;"	e	enum:__anon4
-SYS_env_destroy	inc/syscall.h	/^	SYS_env_destroy,$/;"	e	enum:__anon4
-SYS_getenvid	inc/syscall.h	/^	SYS_getenvid,$/;"	e	enum:__anon4
+SYS_cgetc	inc/syscall.h	/^	SYS_cgetc,$/;"	e	enum:__anon19
+SYS_cputs	inc/syscall.h	/^	SYS_cputs = 0,$/;"	e	enum:__anon19
+SYS_env_destroy	inc/syscall.h	/^	SYS_env_destroy,$/;"	e	enum:__anon19
+SYS_getenvid	inc/syscall.h	/^	SYS_getenvid,$/;"	e	enum:__anon19
 Secthdr	inc/elf.h	/^struct Secthdr {$/;"	s
 Secthdr	kern/dwarf_elf.h	/^typedef struct Secthdr {$/;"	s
 Secthdr	kern/dwarf_elf.h	115;"	d
 Secthdr	kern/dwarf_elf.h	68;"	d
 Secthdr32	kern/dwarf_elf.h	/^}Secthdr32;$/;"	t	typeref:struct:Secthdr
-Secthdr64	kern/dwarf_elf.h	/^} Secthdr64;$/;"	t	typeref:struct:__anon16
+Secthdr64	kern/dwarf_elf.h	/^} Secthdr64;$/;"	t	typeref:struct:__anon12
 Segdesc	inc/mmu.h	/^struct Segdesc {$/;"	s
 Stab	inc/stab.h	/^struct Stab {$/;"	s
 SystemSegdesc64	inc/mmu.h	/^struct SystemSegdesc64{$/;"	s
@@ -1283,7 +1283,7 @@ altflag	obj/user/softint.asm	/^			altflag = 1;$/;"	d
 altflag	obj/user/softint.asm	/^		altflag = 0;$/;"	d
 altflag	obj/user/testbss.asm	/^			altflag = 1;$/;"	d
 altflag	obj/user/testbss.asm	/^		altflag = 0;$/;"	d
-aout_sym	kern/multiboot.h	/^     aout_symbol_table_t aout_sym;$/;"	m	union:multiboot_info::__anon5
+aout_sym	kern/multiboot.h	/^     aout_symbol_table_t aout_sym;$/;"	m	union:multiboot_info::__anon1
 aout_symbol_table	kern/multiboot.h	/^ typedef struct aout_symbol_table$/;"	s
 aout_symbol_table_t	kern/multiboot.h	/^ } aout_symbol_table_t;$/;"	t	typeref:struct:aout_symbol_table
 application	obj/kern/kernel.asm	/^	application = encode & 0xf0;$/;"	d
@@ -1388,7 +1388,6 @@ base	obj/user/testbss.asm	/^			base = 8;$/;"	d
 base	obj/user/testbss.asm	/^		base = 10;$/;"	d
 base_addr_high	kern/multiboot.h	/^   uint32_t base_addr_high;$/;"	m	struct:memory_map
 base_addr_low	kern/multiboot.h	/^   uint32_t base_addr_low;$/;"	m	struct:memory_map
-basemem	obj/kern/kernel.asm	/^		basemem = (nvram_read(NVRAM_BASELO) * 1024);$/;"	d
 basic_block	obj/kern/kernel.asm	/^                basic_block = 0;$/;"	d
 basic_block	obj/kern/kernel.asm	/^                basic_block = 1;$/;"	d
 basic_block	obj/kern/kernel.asm	/^            basic_block = 0;$/;"	d
@@ -1407,23 +1406,21 @@ binaryname	obj/user/faultwritekernel.asm	/^		binaryname = argv[0];$/;"	d
 binaryname	obj/user/hello.asm	/^		binaryname = argv[0];$/;"	d
 binaryname	obj/user/softint.asm	/^		binaryname = argv[0];$/;"	d
 binaryname	obj/user/testbss.asm	/^		binaryname = argv[0];$/;"	d
-bl_data	kern/dwarf.h	/^    void      *bl_data;$/;"	m	struct:__anon10
-bl_len	kern/dwarf.h	/^    uint64_t   bl_len;$/;"	m	struct:__anon10
+bl_data	kern/dwarf.h	/^    void      *bl_data;$/;"	m	struct:__anon6
+bl_len	kern/dwarf.h	/^    uint64_t   bl_len;$/;"	m	struct:__anon6
 bool	inc/types.h	/^typedef _Bool bool;$/;"	t
 boot_alloc	kern/pmap.c	/^boot_alloc(uint32_t n)$/;"	f	file:
 boot_cr3	kern/pmap.c	/^physaddr_t boot_cr3;		\/\/ Physical address of boot time page directory$/;"	v
-boot_cr3	obj/kern/kernel.asm	/^	boot_cr3 = PADDR(pml4e);$/;"	d
 boot_device	kern/multiboot.h	/^   uint32_t boot_device;$/;"	m	struct:multiboot_info
 boot_map_region	kern/pmap.c	/^boot_map_region(pml4e_t *pml4e, uintptr_t la, size_t size, physaddr_t pa, int perm)$/;"	f	file:
 boot_pml4e	kern/pmap.c	/^pml4e_t *boot_pml4e;		\/\/ Kernel's initial page directory$/;"	v
-boot_pml4e	obj/kern/kernel.asm	/^	boot_pml4e = pml4e;$/;"	d
 bootmain	boot/main.c	/^bootmain(void)$/;"	f
 bootstack	kern/entry.S	/^bootstack:$/;"	l
 bootstacktop	kern/entry.S	/^bootstacktop:$/;"	l
 breakpoint	gradelib.py	/^    def breakpoint(self, addr):$/;"	m	class:GDBClient
 breakpoint	inc/x86.h	/^breakpoint(void)$/;"	f
 bss_end_addr	kern/multiboot.h	/^   uint32_t bss_end_addr;$/;"	m	struct:multiboot_header
-buf	kern/console.c	/^	uint8_t buf[CONSBUFSIZE];$/;"	m	struct:__anon18	file:
+buf	kern/console.c	/^	uint8_t buf[CONSBUFSIZE];$/;"	m	struct:__anon14	file:
 buf	lib/printf.c	/^	char buf[256];$/;"	m	struct:printbuf	file:
 buf	lib/printfmt.c	/^	char *buf;$/;"	m	struct:sprintbuf	file:
 buf	lib/readline.c	/^static char buf[BUFLEN];$/;"	v	file:
@@ -1432,7 +1429,6 @@ c	obj/kern/kernel.asm	/^		c = (c<<24)|(c<<16)|(c<<8)|c;$/;"	d
 c	obj/kern/kernel.asm	/^		c = cons.buf[cons.rpos++];$/;"	d
 c	obj/kern/kernel.asm	/^		c = getchar();$/;"	d
 c	obj/kern/kernel.asm	/^	c = charcode[shift & (CTL | SHIFT)][data];$/;"	d
-c	obj/kern/kernel.asm	/^	c = page2kva(pp);$/;"	d
 c	obj/kern/kernel.asm	/^    c = *str++;$/;"	d
 c	obj/user/badsegment.asm	/^		c = (c<<24)|(c<<16)|(c<<8)|c;$/;"	d
 c	obj/user/badsegment.asm	/^    c = *str++;$/;"	d
@@ -1480,7 +1476,6 @@ ch	obj/user/softint.asm	/^				ch = *fmt;$/;"	d
 ch	obj/user/testbss.asm	/^				ch = *fmt;$/;"	d
 char	obj/kern/kernel.asm	/^char * strstr(const char *in, const char *str)$/;"	l
 char	obj/kern/kernel.asm	/^char *$/;"	l
-char	obj/kern/kernel.asm	/^char *addr, *pa_addr;$/;"	l
 char	obj/user/badsegment.asm	/^char * strstr(const char *in, const char *str)$/;"	l
 char	obj/user/badsegment.asm	/^char *$/;"	l
 char	obj/user/breakpoint.asm	/^char * strstr(const char *in, const char *str)$/;"	l
@@ -1555,7 +1550,7 @@ cnt	obj/user/testbss.asm	/^	cnt = vcprintf(fmt, aq);$/;"	d
 color	gradelib.py	/^def color(name, text):$/;"	f
 column	obj/kern/kernel.asm	/^                column = _dwarf_decode_uleb128(&p);$/;"	d
 commands	kern/monitor.c	/^static struct Command commands[] = {$/;"	v	typeref:struct:Command	file:
-cons	kern/console.c	/^} cons;$/;"	v	typeref:struct:__anon18	file:
+cons	kern/console.c	/^} cons;$/;"	v	typeref:struct:__anon14	file:
 cons_getc	kern/console.c	/^cons_getc(void)$/;"	f
 cons_init	kern/console.c	/^cons_init(void)$/;"	f
 cons_intr	kern/console.c	/^cons_intr(int (*proc)(void))$/;"	f	file:
@@ -1645,7 +1640,6 @@ debug_abbrev_offset	kern/dwarf.h	/^	uint64_t debug_abbrev_offset;	\/\/Offset in 
 debug_frame_sec	kern/libdwarf_frame.c	/^Dwarf_Section debug_frame_sec = {".eh_frame", 0, 0, 0};$/;"	v
 debuginfo_rip	kern/kdebug.c	/^debuginfo_rip(uintptr_t addr, struct Ripdebuginfo *info)$/;"	f
 decode	kern/dwarf.h	/^    uint64_t  (*decode)(uint8_t **, int);$/;"	m	struct:_Dwarf_Debug
-default	obj/kern/kernel.asm	/^			default:$/;"	l
 default	obj/kern/kernel.asm	/^		default:$/;"	l
 default	obj/kern/kernel.asm	/^	default:$/;"	l
 default	obj/kern/kernel.asm	/^                        default:$/;"	l
@@ -1742,14 +1736,14 @@ dst_in	obj/user/faultwritekernel.asm	/^	dst_in = dst;$/;"	d
 dst_in	obj/user/hello.asm	/^	dst_in = dst;$/;"	d
 dst_in	obj/user/softint.asm	/^	dst_in = dst;$/;"	d
 dst_in	obj/user/testbss.asm	/^	dst_in = dst;$/;"	d
-dw_block_ptr	kern/dwarf.h	/^        Dwarf_Ptr       dw_block_ptr;$/;"	m	struct:__anon6
-dw_offset	kern/dwarf.h	/^                Dwarf_Addr      dw_offset;$/;"	m	struct:__anon13::__anon14
-dw_offset_or_block_len	kern/dwarf.h	/^        Dwarf_Unsigned  dw_offset_or_block_len;$/;"	m	struct:__anon6
-dw_offset_relevant	kern/dwarf.h	/^                Dwarf_Small     dw_offset_relevant;$/;"	m	struct:__anon13::__anon14
-dw_offset_relevant	kern/dwarf.h	/^        Dwarf_Small     dw_offset_relevant;$/;"	m	struct:__anon6
-dw_regnum	kern/dwarf.h	/^                Dwarf_Half      dw_regnum;$/;"	m	struct:__anon13::__anon14
-dw_regnum	kern/dwarf.h	/^        Dwarf_Half      dw_regnum;$/;"	m	struct:__anon6
-dw_value_type	kern/dwarf.h	/^        Dwarf_Small     dw_value_type;$/;"	m	struct:__anon6
+dw_block_ptr	kern/dwarf.h	/^        Dwarf_Ptr       dw_block_ptr;$/;"	m	struct:__anon2
+dw_offset	kern/dwarf.h	/^                Dwarf_Addr      dw_offset;$/;"	m	struct:__anon9::__anon10
+dw_offset_or_block_len	kern/dwarf.h	/^        Dwarf_Unsigned  dw_offset_or_block_len;$/;"	m	struct:__anon2
+dw_offset_relevant	kern/dwarf.h	/^                Dwarf_Small     dw_offset_relevant;$/;"	m	struct:__anon9::__anon10
+dw_offset_relevant	kern/dwarf.h	/^        Dwarf_Small     dw_offset_relevant;$/;"	m	struct:__anon2
+dw_regnum	kern/dwarf.h	/^                Dwarf_Half      dw_regnum;$/;"	m	struct:__anon9::__anon10
+dw_regnum	kern/dwarf.h	/^        Dwarf_Half      dw_regnum;$/;"	m	struct:__anon2
+dw_value_type	kern/dwarf.h	/^        Dwarf_Small     dw_value_type;$/;"	m	struct:__anon2
 dwarf_child	kern/libdwarf_rw.c	/^dwarf_child(Dwarf_Debug dbg, Dwarf_CU *cu, Dwarf_Die *die, Dwarf_Die *ret_die)$/;"	f
 dwarf_get_fde_at_pc	kern/libdwarf_frame.c	/^dwarf_get_fde_at_pc(Dwarf_Addr pc,$/;"	f
 dwarf_get_fde_info_for_all_regs	kern/libdwarf_frame.c	/^dwarf_get_fde_info_for_all_regs(Dwarf_Fde fde, Dwarf_Addr pc_requested,$/;"	f
@@ -1818,7 +1812,7 @@ echoing	obj/kern/kernel.asm	/^	echoing = iscons(0);$/;"	d
 elf	inc/env.h	/^    uint8_t *elf;$/;"	m	struct:Env
 elf	obj/kern/kernel.asm	/^	    elf = (void *)0x10000 + KERNBASE;$/;"	d
 elf	obj/kern/kernel.asm	/^	    elf = curenv->elf;$/;"	d
-elf_sec	kern/multiboot.h	/^     elf_section_header_table_t elf_sec;$/;"	m	union:multiboot_info::__anon5
+elf_sec	kern/multiboot.h	/^     elf_section_header_table_t elf_sec;$/;"	m	union:multiboot_info::__anon1
 elf_section_header_table	kern/multiboot.h	/^ typedef struct elf_section_header_table$/;"	s
 elf_section_header_table_t	kern/multiboot.h	/^ } elf_section_header_table_t;$/;"	t	typeref:struct:elf_section_header_table
 encode	obj/kern/kernel.asm	/^			encode = *augdata_p++;$/;"	d
@@ -1872,9 +1866,8 @@ envid_t	obj/user/hello.asm	/^envid_t$/;"	l
 envid_t	obj/user/softint.asm	/^envid_t$/;"	l
 envid_t	obj/user/testbss.asm	/^envid_t$/;"	l
 envs	kern/env.c	/^struct Env *envs = NULL;		\/\/ All environments$/;"	v	typeref:struct:Env
-envs	obj/kern/kernel.asm	/^	envs = (struct Env*) boot_alloc(ROUNDUP(sizeof(struct Env) * NENV,PGSIZE));$/;"	d
 eph	obj/boot/boot.asm	/^	eph = ph + ELFHDR->e_phnum;$/;"	d
-eph	obj/kern/kernel.asm	/^	eph = ph + elf->e_phnum;$/;"	d
+eph	obj/kern/kernel.asm	/^		eph = ph + elf->e_phnum;$/;"	d
 epilogue_begin	obj/kern/kernel.asm	/^                epilogue_begin = 0;$/;"	d
 epilogue_begin	obj/kern/kernel.asm	/^                epilogue_begin = 1;$/;"	d
 epilogue_begin	obj/kern/kernel.asm	/^            epilogue_begin = 0;$/;"	d
@@ -1913,10 +1906,9 @@ err_line	kern/dwarf.h	/^        int             err_line;       \/* Line number 
 err_msg	kern/dwarf.h	/^        char            err_msg[1024];  \/* Formatted error message. *\/$/;"	m	struct:_Dwarf_Error
 error_string	lib/printfmt.c	/^static const char * const error_string[MAXERROR] =$/;"	v	file:
 exit	lib/exit.c	/^exit(void)$/;"	f
-extmem	obj/kern/kernel.asm	/^		extmem = (nvram_read(NVRAM_EXTLO) * 1024);$/;"	d
 fail_cleanup	obj/kern/kernel.asm	/^fail_cleanup:$/;"	l
 failed	boot/boot.S	/^failed:$/;"	l
-false	inc/types.h	/^enum { false, true };$/;"	e	enum:__anon1
+false	inc/types.h	/^enum { false, true };$/;"	e	enum:__anon16
 fault_va	obj/kern/kernel.asm	/^	fault_va = rcr2();$/;"	d
 fde	obj/kern/kernel.asm	/^	fde = retfde;$/;"	d
 fde_addr	kern/dwarf.h	/^        Dwarf_Ptr       fde_addr;       \/* Ptr to start of the FDE. *\/$/;"	m	struct:_Dwarf_Fde
@@ -1940,8 +1932,6 @@ fileno	gradelib.py	/^    def fileno(self):$/;"	f
 fileno	gradelib.py	/^    def fileno(self):$/;"	m	class:GDBClient
 find_debug_sections	kern/elf_rw.c	/^void find_debug_sections(uintptr_t elf) $/;"	f
 find_done	obj/kern/kernel.asm	/^find_done:$/;"	l
-first_free_page	obj/kern/kernel.asm	/^	first_free_page = (char *) boot_alloc(0);$/;"	d
-fl	obj/kern/kernel.asm	/^	fl = page_free_list;$/;"	d
 flags	kern/multiboot.h	/^   uint32_t flags;$/;"	m	struct:multiboot_header
 flags	kern/multiboot.h	/^   uint32_t flags;$/;"	m	struct:multiboot_info
 fname	obj/kern/kernel.asm	/^    fname = (char *) src;$/;"	d
@@ -2040,7 +2030,6 @@ kbd_intr	kern/console.c	/^kbd_intr(void)$/;"	f
 kbd_proc_data	kern/console.c	/^kbd_proc_data(void)$/;"	f	file:
 kernel_64	kern/entry.S	/^kernel_64:$/;"	l
 kill	gradelib.py	/^    def kill(self):$/;"	f
-last	obj/kern/kernel.asm	/^			last = &pages[i];$/;"	d
 last	obj/kern/kernel.asm	/^last:	$/;"	l
 last_tf	kern/trap.c	/^static struct Trapframe *last_tf;$/;"	v	typeref:struct:Trapframe	file:
 last_tf	obj/kern/kernel.asm	/^	last_tf = tf;$/;"	d
@@ -2048,10 +2037,10 @@ lastenv	obj/kern/kernel.asm	/^		    lastenv = curenv;$/;"	d
 lcr0	inc/x86.h	/^lcr0(uint64_t val)$/;"	f
 lcr3	inc/x86.h	/^lcr3(uint64_t val)$/;"	f
 lcr4	inc/x86.h	/^lcr4(uint64_t val)$/;"	f
-ld_cents	kern/dwarf.h	/^    uint16_t      ld_cents;   $/;"	m	struct:__anon9
-ld_hipc	kern/dwarf.h	/^    uint64_t      ld_hipc;    $/;"	m	struct:__anon9
-ld_lopc	kern/dwarf.h	/^    uint64_t      ld_lopc;    $/;"	m	struct:__anon9
-ld_s	kern/dwarf.h	/^    Dwarf_Loc     ld_s;      $/;"	m	struct:__anon9
+ld_cents	kern/dwarf.h	/^    uint16_t      ld_cents;   $/;"	m	struct:__anon5
+ld_hipc	kern/dwarf.h	/^    uint64_t      ld_hipc;    $/;"	m	struct:__anon5
+ld_lopc	kern/dwarf.h	/^    uint64_t      ld_lopc;    $/;"	m	struct:__anon5
+ld_s	kern/dwarf.h	/^    Dwarf_Loc     ld_s;      $/;"	m	struct:__anon5
 len	obj/kern/kernel.asm	/^    len = strlen(str);$/;"	d
 len	obj/user/badsegment.asm	/^    len = strlen(str);$/;"	d
 len	obj/user/breakpoint.asm	/^    len = strlen(str);$/;"	d
@@ -2142,10 +2131,10 @@ long	obj/user/testbss.asm	/^long$/;"	l
 low	obj/kern/kernel.asm	/^	low  = _dwarf_attr_find(die, DW_AT_low_pc);$/;"	d
 low6	obj/kern/kernel.asm	/^                low6 = *p & 0x3f;$/;"	d
 lpt_putc	kern/console.c	/^lpt_putc(int c)$/;"	f	file:
-lr_atom	kern/dwarf.h	/^    uint8_t   lr_atom;$/;"	m	struct:__anon8
-lr_number	kern/dwarf.h	/^    uint64_t  lr_number;$/;"	m	struct:__anon8
-lr_number2	kern/dwarf.h	/^    uint64_t  lr_number2;$/;"	m	struct:__anon8
-lr_offset	kern/dwarf.h	/^    uint64_t  lr_offset;$/;"	m	struct:__anon8
+lr_atom	kern/dwarf.h	/^    uint8_t   lr_atom;$/;"	m	struct:__anon4
+lr_number	kern/dwarf.h	/^    uint64_t  lr_number;$/;"	m	struct:__anon4
+lr_number2	kern/dwarf.h	/^    uint64_t  lr_number2;$/;"	m	struct:__anon4
+lr_offset	kern/dwarf.h	/^    uint64_t  lr_offset;$/;"	m	struct:__anon4
 ltr	inc/x86.h	/^ltr(uint16_t sel)$/;"	f
 magic	kern/multiboot.h	/^   uint32_t magic;$/;"	m	struct:multiboot_header
 main	ex1.c	/^main(int argc, char **argv)$/;"	f
@@ -2183,8 +2172,6 @@ multiboot_info_t	kern/multiboot.h	/^ } multiboot_info_t;$/;"	t	typeref:struct:mu
 multiboot_read	kern/pmap.c	/^multiboot_read(multiboot_info_t* mbinfo, size_t* basemem, size_t* extmem) {$/;"	f	file:
 myat	obj/kern/kernel.asm	/^            myat = &(die->die_attr[i]);$/;"	d
 mydebug	kern/kdebug.c	/^struct _Dwarf_Debug mydebug;$/;"	v	typeref:struct:_Dwarf_Debug
-n	obj/kern/kernel.asm	/^	n = ROUNDUP(NENV*sizeof(struct Env), PGSIZE);$/;"	d
-n	obj/kern/kernel.asm	/^	n = ROUNDUP(npages*sizeof(struct PageInfo), PGSIZE);$/;"	d
 n_desc	inc/stab.h	/^	uint16_t n_desc;        \/\/ description field$/;"	m	struct:Stab
 n_other	inc/stab.h	/^	uint8_t n_other;        \/\/ misc info (usually empty)$/;"	m	struct:Stab
 n_strx	inc/stab.h	/^	uint32_t n_strx;	\/\/ index into string table of name$/;"	m	struct:Stab
@@ -2197,17 +2184,9 @@ name	obj/kern/kernel.asm	/^		name = (char *)(nametab + secthdr_ptr[i]->sh_name);
 nametab	obj/kern/kernel.asm	/^	nametab = (char *)((char *)kvbase + temp) + OFFSET_CORRECT(sec_name->sh_offset);	$/;"	d
 next_entry	boot/boot.S	/^next_entry:$/;"	l
 next_entry	obj/boot/boot.asm	/^next_entry:$/;"	l
-nextfree	obj/kern/kernel.asm	/^		nextfree = ROUNDUP((char *) end_debug, PGSIZE);$/;"	d
-nextfree	obj/kern/kernel.asm	/^	nextfree = ROUNDUP(nextfree, PGSIZE); \/\/ nextfree points to the next free page$/;"	d
 normalmap	kern/console.c	/^static uint8_t normalmap[256] =$/;"	v	file:
 npages	kern/pmap.c	/^size_t npages;			\/\/ Amount of physical memory (in pages)$/;"	v
-npages	obj/kern/kernel.asm	/^		npages = (255 * 1024 * 1024) \/ PGSIZE;$/;"	d
-npages	obj/kern/kernel.asm	/^		npages = (EXTPHYSMEM \/ PGSIZE) + npages_extmem;$/;"	d
-npages	obj/kern/kernel.asm	/^		npages = npages_basemem;$/;"	d
 npages_basemem	kern/pmap.c	/^static size_t npages_basemem;	\/\/ Amount of base memory (in pages)$/;"	v	file:
-npages_basemem	obj/kern/kernel.asm	/^	npages_basemem = basemem \/ PGSIZE;$/;"	d
-npages_extmem	obj/kern/kernel.asm	/^		npages_extmem = ((16 * 1024 * 1024) + pextmem - (1 * 1024 * 1024)) \/ PGSIZE;$/;"	d
-npages_extmem	obj/kern/kernel.asm	/^	npages_extmem = extmem \/ PGSIZE;$/;"	d
 num	kern/multiboot.h	/^   uint32_t num;$/;"	m	struct:elf_section_header_table
 num	obj/kern/kernel.asm	/^				num = -(long long) num;$/;"	d
 num	obj/kern/kernel.asm	/^			num = (unsigned long long)$/;"	d
@@ -2401,57 +2380,32 @@ page_decref	kern/pmap.c	/^page_decref(struct PageInfo* pp)$/;"	f
 page_fault_handler	kern/trap.c	/^page_fault_handler(struct Trapframe *tf)$/;"	f
 page_free	kern/pmap.c	/^page_free(struct PageInfo *pp)$/;"	f
 page_free_list	kern/pmap.c	/^static struct PageInfo *page_free_list;	\/\/ Free list of physical pages$/;"	v	typeref:struct:PageInfo	file:
-page_free_list	obj/kern/kernel.asm	/^		page_free_list = pp1;$/;"	d
-page_free_list	obj/kern/kernel.asm	/^	page_free_list = 0;$/;"	d
-page_free_list	obj/kern/kernel.asm	/^	page_free_list = NULL;$/;"	d
-page_free_list	obj/kern/kernel.asm	/^	page_free_list = fl;$/;"	d
-page_free_list	obj/kern/kernel.asm	/^	page_free_list = page_free_list->pp_link;$/;"	d
-page_free_list	obj/kern/kernel.asm	/^	page_free_list = pp;$/;"	d
-page_free_list	obj/kern/kernel.asm	/^            			page_free_list = &pages[i];$/;"	d
 page_init	kern/pmap.c	/^page_init(void)$/;"	f
 page_initpp	kern/pmap.c	/^page_initpp(struct PageInfo *pp)$/;"	f	file:
 page_insert	kern/pmap.c	/^page_insert(pml4e_t *pml4e, struct PageInfo *pp, void *va, int perm)$/;"	f
 page_lookup	kern/pmap.c	/^page_lookup(pml4e_t *pml4e, void *va, pte_t **pte_store)$/;"	f
 page_remove	kern/pmap.c	/^page_remove(pml4e_t *pml4e, void *va)$/;"	f
-page_table_base	obj/kern/kernel.asm	/^                        page_table_base = (pte_t*)page2pa(newPage);$/;"	d
 pages	kern/pmap.c	/^struct PageInfo *pages;		\/\/ Physical page state array$/;"	v	typeref:struct:PageInfo
-pages	obj/kern/kernel.asm	/^	pages = (struct PageInfo *)boot_alloc(npages * sizeof(struct PageInfo));$/;"	d
 panic	inc/assert.h	12;"	d
 panicstr	kern/init.c	/^const char *panicstr;$/;"	v
 panicstr	obj/kern/kernel.asm	/^	panicstr = fmt;$/;"	d
 pc	obj/kern/kernel.asm	/^                        pc = dbg->decode(&p, dbg->dbg_pointer_size);$/;"	d
 pd_base	inc/mmu.h	/^	uint64_t pd_base;		\/\/ Base address$/;"	m	struct:Pseudodesc
 pd_lim	inc/mmu.h	/^	uint16_t pd_lim;		\/\/ Limit$/;"	m	struct:Pseudodesc
-pde	obj/kern/kernel.asm	/^	pde  = KADDR(PTE_ADDR(pdpe[PDPE(va)]));$/;"	d
-pde	obj/kern/kernel.asm	/^	pde = &pde[PDX(va)];$/;"	d
-pde	obj/kern/kernel.asm	/^	pde = (pde_t *) KADDR(PTE_ADDR(pdpe[PDPE(va)]));$/;"	d
-pde	obj/kern/kernel.asm	/^	pde = KADDR(PTE_ADDR(pdpe[PDPE(PGSIZE)]));$/;"	d
-pde	obj/kern/kernel.asm	/^    pde  = KADDR(PTE_ADDR(pdpe[0]));$/;"	d
 pde_t	inc/memlayout.h	/^typedef uint64_t pde_t;$/;"	t
 pdeno_limit	obj/kern/kernel.asm	/^		pdeno_limit  = pdpe_index==3?PDX(UTOP):PDX(0xFFFFFFFF);$/;"	d
-pdpe	obj/kern/kernel.asm	/^	pdpe = (pdpe_t *) KADDR(PTE_ADDR(*pml4e));$/;"	d
-pdpe	obj/kern/kernel.asm	/^	pdpe = KADDR(PTE_ADDR(boot_pml4e[0]));$/;"	d
-pdpe	obj/kern/kernel.asm	/^	pdpe = KADDR(PTE_ADDR(boot_pml4e[PML4(PGSIZE)]));$/;"	d
-pdpe	obj/kern/kernel.asm	/^	pdpe = KADDR(PTE_ADDR(boot_pml4e[PML4(va)]));$/;"	d
 pdpe_t	inc/memlayout.h	/^typedef uint64_t pdpe_t;$/;"	t
 pdpe_walk	kern/pmap.c	/^pdpe_walk(pdpe_t *pdpe,const void *va,int create){$/;"	f
-pdpt_base	obj/kern/kernel.asm	/^			pdpt_base = (pdpe_t*)page2pa(newPage);$/;"	d
 pe	obj/kern/kernel.asm	/^        pe = p + len;$/;"	d
-pgdir_base	obj/kern/kernel.asm	/^                        pgdir_base = (pde_t*)page2pa(newPage);$/;"	d
 pgdir_walk	kern/pmap.c	/^pgdir_walk(pde_t *pgdir, const void *va, int create)$/;"	f
 ph	obj/boot/boot.asm	/^	ph = (struct Proghdr *) ((uint8_t *) ELFHDR + ELFHDR->e_phoff);$/;"	d
-ph	obj/kern/kernel.asm	/^	ph = (struct Proghdr *) ((uint8_t *) elf + elf->e_phoff);$/;"	d
+ph	obj/kern/kernel.asm	/^		ph  = (struct Proghdr *)((uint8_t *)elf + elf->e_phoff);$/;"	d
 physaddr_t	inc/types.h	/^typedef uint64_t physaddr_t;$/;"	t
-pml4e	obj/kern/kernel.asm	/^	pml4e = &pml4e[PML4(va)];$/;"	d
-pml4e	obj/kern/kernel.asm	/^	pml4e = boot_alloc(PGSIZE);$/;"	d
-pml4e	obj/kern/kernel.asm	/^	pml4e = boot_pml4e;$/;"	d
 pml4e_t	inc/memlayout.h	/^typedef uint64_t pml4e_t;$/;"	t
 pml4e_walk	kern/pmap.c	/^pml4e_walk(pml4e_t *pml4e, const void *va, int create)$/;"	f
 pml4virt	kern/bootstrap.S	/^pml4virt:$/;"	l
 pos	obj/kern/kernel.asm	/^	pos = inb(addr_6845 + 1) << 8;$/;"	d
 post_make	gradelib.py	/^def post_make():$/;"	f
-pp0	obj/kern/kernel.asm	/^	pp0 = pp1 = pp2 = 0;$/;"	d
-pp0	obj/kern/kernel.asm	/^	pp0 = pp1 = pp2 = pp3 = pp4 = pp5 =0;$/;"	d
 pp_link	inc/memlayout.h	/^        struct PageInfo *pp_link;$/;"	m	struct:PageInfo	typeref:struct:PageInfo::PageInfo
 pp_ref	inc/memlayout.h	/^	uint16_t pp_ref;$/;"	m	struct:PageInfo
 ppn_t	inc/types.h	/^typedef uint64_t ppn_t;$/;"	t
@@ -2526,15 +2480,7 @@ prologue_end	obj/kern/kernel.asm	/^            prologue_end = 0;$/;"	d
 protcseg	boot/boot.S	/^protcseg:$/;"	l
 protcseg	obj/boot/boot.asm	/^protcseg:$/;"	l
 pt	obj/kern/kernel.asm	/^			pt = (pte_t*) KADDR(pa);$/;"	d
-pte	obj/kern/kernel.asm	/^	pte = (pte_t*) KADDR(PTE_ADDR(*pde));$/;"	d
 pte_t	inc/memlayout.h	/^typedef uint64_t pte_t;$/;"	t
-pte_t	obj/kern/kernel.asm	/^pte_t * pte = pml4e_walk(pml4e, (void*)va, 0);$/;"	l
-pte_t	obj/kern/kernel.asm	/^pte_t *$/;"	l
-pte_t	obj/kern/kernel.asm	/^pte_t *pte;$/;"	l
-ptep	obj/kern/kernel.asm	/^	ptep = KADDR(PTE_ADDR(pde[PDX(PGSIZE)]));$/;"	d
-ptep	obj/kern/kernel.asm	/^	ptep = pml4e_walk(boot_pml4e, va, 1);$/;"	d
-ptep	obj/kern/kernel.asm	/^    ptep  = KADDR(PTE_ADDR(pde[0]));$/;"	d
-ptep1	obj/kern/kernel.asm	/^	ptep1 = KADDR(PTE_ADDR(pde[PDX(va)]));$/;"	d
 putch	kern/printf.c	/^putch(int ch, int *cnt)$/;"	f	file:
 putch	lib/printf.c	/^putch(int ch, struct printbuf *b)$/;"	f	file:
 r	grade-lab1	/^r = Runner(save("jos.out"),$/;"	v
@@ -2600,7 +2546,6 @@ reserved	kern/multiboot.h	/^   uint32_t reserved;$/;"	m	struct:aout_symbol_table
 reserved	kern/multiboot.h	/^   uint32_t reserved;$/;"	m	struct:module
 reset_fs	gradelib.py	/^def reset_fs():$/;"	f
 restrictive_type	kern/multiboot.h	/^uint32_t restrictive_type(uint32_t t1, uint32_t t2) {$/;"	f
-result	obj/kern/kernel.asm	/^	result = nextfree;$/;"	d
 reswitch	obj/kern/kernel.asm	/^	reswitch:$/;"	l
 reswitch	obj/user/badsegment.asm	/^	reswitch:$/;"	l
 reswitch	obj/user/breakpoint.asm	/^	reswitch:$/;"	l
@@ -2668,18 +2613,18 @@ rip_fn_name	kern/kdebug.h	/^	const char *rip_fn_name;	\/\/ Name of function cont
 rip_fn_namelen	kern/kdebug.h	/^	int rip_fn_namelen;		\/\/ Length of function name$/;"	m	struct:Ripdebuginfo
 rip_fn_narg	kern/kdebug.h	/^	int rip_fn_narg;		\/\/ Number of function arguments$/;"	m	struct:Ripdebuginfo
 rip_line	kern/kdebug.h	/^	int rip_line;			\/\/ Source code linenumber for RIP$/;"	m	struct:Ripdebuginfo
-rpos	kern/console.c	/^	uint32_t rpos;$/;"	m	struct:__anon18	file:
+rpos	kern/console.c	/^	uint32_t rpos;$/;"	m	struct:__anon14	file:
 rt	obj/kern/kernel.asm	/^        rt = dbg->dbg_internal_reg_table;$/;"	d
-rt3_cfa_rule	kern/dwarf.h	/^        Dwarf_Regtable_Entry3   rt3_cfa_rule;$/;"	m	struct:__anon7
-rt3_reg_table_size	kern/dwarf.h	/^        Dwarf_Half              rt3_reg_table_size;$/;"	m	struct:__anon7
-rt3_rules	kern/dwarf.h	/^        Dwarf_Regtable_Entry3   *rt3_rules;$/;"	m	struct:__anon7
-rules	kern/dwarf.h	/^        } rules[DW_REG_TABLE_SIZE];$/;"	m	struct:__anon13	typeref:struct:__anon13::__anon14
+rt3_cfa_rule	kern/dwarf.h	/^        Dwarf_Regtable_Entry3   rt3_cfa_rule;$/;"	m	struct:__anon3
+rt3_reg_table_size	kern/dwarf.h	/^        Dwarf_Half              rt3_reg_table_size;$/;"	m	struct:__anon3
+rt3_rules	kern/dwarf.h	/^        Dwarf_Regtable_Entry3   *rt3_rules;$/;"	m	struct:__anon3
+rules	kern/dwarf.h	/^        } rules[DW_REG_TABLE_SIZE];$/;"	m	struct:__anon9	typeref:struct:__anon9::__anon10
 run_qemu	gradelib.py	/^    def run_qemu(self, *monitors, **kw):$/;"	m	class:Runner
 run_qemu_kw	gradelib.py	/^        def run_qemu_kw(target_base="qemu", make_args=[], timeout=30):$/;"	f	function:Runner.run_qemu
 run_test	gradelib.py	/^        def run_test():$/;"	f	function:test.register_test
 run_tests	gradelib.py	/^def run_tests():$/;"	f
 runcmd	kern/monitor.c	/^runcmd(char *buf, struct Trapframe *tf)$/;"	f	file:
-s	kern/dwarf.h	/^        char        *s;         \/* String. *\/$/;"	m	union:_Dwarf_Attribute::__anon11
+s	kern/dwarf.h	/^        char        *s;         \/* String. *\/$/;"	m	union:_Dwarf_Attribute::__anon7
 s	obj/kern/kernel.asm	/^	s = src;$/;"	d
 s	obj/user/badsegment.asm	/^	s = src;$/;"	d
 s	obj/user/breakpoint.asm	/^	s = src;$/;"	d
@@ -2694,7 +2639,7 @@ s	obj/user/faultwritekernel.asm	/^	s = src;$/;"	d
 s	obj/user/hello.asm	/^	s = src;$/;"	d
 s	obj/user/softint.asm	/^	s = src;$/;"	d
 s	obj/user/testbss.asm	/^	s = src;$/;"	d
-s64	kern/dwarf.h	/^        int64_t     s64;        \/* Signed value. *\/$/;"	m	union:_Dwarf_Attribute::__anon11
+s64	kern/dwarf.h	/^        int64_t     s64;        \/* Signed value. *\/$/;"	m	union:_Dwarf_Attribute::__anon7
 save	gradelib.py	/^def save(path):$/;"	f
 save_on_finish	gradelib.py	/^    def save_on_finish(fail):$/;"	f	function:save
 sc	obj/kern/kernel.asm	/^            sc = *in++;$/;"	d
@@ -2756,34 +2701,34 @@ setup_breakpoint	gradelib.py	/^    def setup_breakpoint(runner):$/;"	f	function:
 setup_call_on_line	gradelib.py	/^    def setup_call_on_line(runner):$/;"	f	function:call_on_line
 setup_save	gradelib.py	/^    def setup_save(runner):$/;"	f	function:save
 sh_addr	inc/elf.h	/^	uint64_t sh_addr;$/;"	m	struct:Secthdr
-sh_addr	kern/dwarf_elf.h	/^               uint64_t   sh_addr;$/;"	m	struct:__anon16
+sh_addr	kern/dwarf_elf.h	/^               uint64_t   sh_addr;$/;"	m	struct:__anon12
 sh_addr	kern/dwarf_elf.h	/^    uint32_t sh_addr;$/;"	m	struct:Secthdr
 sh_addralign	inc/elf.h	/^	uint64_t sh_addralign;$/;"	m	struct:Secthdr
-sh_addralign	kern/dwarf_elf.h	/^               uint64_t   sh_addralign;$/;"	m	struct:__anon16
+sh_addralign	kern/dwarf_elf.h	/^               uint64_t   sh_addralign;$/;"	m	struct:__anon12
 sh_addralign	kern/dwarf_elf.h	/^    uint32_t sh_addralign;$/;"	m	struct:Secthdr
 sh_entsize	inc/elf.h	/^	uint64_t sh_entsize;$/;"	m	struct:Secthdr
-sh_entsize	kern/dwarf_elf.h	/^               uint64_t   sh_entsize;$/;"	m	struct:__anon16
+sh_entsize	kern/dwarf_elf.h	/^               uint64_t   sh_entsize;$/;"	m	struct:__anon12
 sh_entsize	kern/dwarf_elf.h	/^    uint32_t sh_entsize;$/;"	m	struct:Secthdr
 sh_flags	inc/elf.h	/^	uint64_t sh_flags;$/;"	m	struct:Secthdr
-sh_flags	kern/dwarf_elf.h	/^               uint64_t   sh_flags;$/;"	m	struct:__anon16
+sh_flags	kern/dwarf_elf.h	/^               uint64_t   sh_flags;$/;"	m	struct:__anon12
 sh_flags	kern/dwarf_elf.h	/^    uint32_t sh_flags;$/;"	m	struct:Secthdr
 sh_info	inc/elf.h	/^	uint32_t sh_info;$/;"	m	struct:Secthdr
-sh_info	kern/dwarf_elf.h	/^               uint32_t   sh_info;$/;"	m	struct:__anon16
+sh_info	kern/dwarf_elf.h	/^               uint32_t   sh_info;$/;"	m	struct:__anon12
 sh_info	kern/dwarf_elf.h	/^    uint32_t sh_info;$/;"	m	struct:Secthdr
 sh_link	inc/elf.h	/^	uint32_t sh_link;$/;"	m	struct:Secthdr
-sh_link	kern/dwarf_elf.h	/^               uint32_t   sh_link;$/;"	m	struct:__anon16
+sh_link	kern/dwarf_elf.h	/^               uint32_t   sh_link;$/;"	m	struct:__anon12
 sh_link	kern/dwarf_elf.h	/^    uint32_t sh_link;$/;"	m	struct:Secthdr
 sh_name	inc/elf.h	/^	uint32_t sh_name;$/;"	m	struct:Secthdr
-sh_name	kern/dwarf_elf.h	/^               uint32_t   sh_name;$/;"	m	struct:__anon16
+sh_name	kern/dwarf_elf.h	/^               uint32_t   sh_name;$/;"	m	struct:__anon12
 sh_name	kern/dwarf_elf.h	/^    uint32_t sh_name;$/;"	m	struct:Secthdr
 sh_offset	inc/elf.h	/^	uint64_t sh_offset;$/;"	m	struct:Secthdr
-sh_offset	kern/dwarf_elf.h	/^               uint64_t   sh_offset;$/;"	m	struct:__anon16
+sh_offset	kern/dwarf_elf.h	/^               uint64_t   sh_offset;$/;"	m	struct:__anon12
 sh_offset	kern/dwarf_elf.h	/^    uint32_t sh_offset;$/;"	m	struct:Secthdr
 sh_size	inc/elf.h	/^	uint64_t sh_size;$/;"	m	struct:Secthdr
-sh_size	kern/dwarf_elf.h	/^               uint64_t   sh_size;$/;"	m	struct:__anon16
+sh_size	kern/dwarf_elf.h	/^               uint64_t   sh_size;$/;"	m	struct:__anon12
 sh_size	kern/dwarf_elf.h	/^    uint32_t sh_size;$/;"	m	struct:Secthdr
 sh_type	inc/elf.h	/^	uint32_t sh_type;$/;"	m	struct:Secthdr
-sh_type	kern/dwarf_elf.h	/^               uint32_t   sh_type;$/;"	m	struct:__anon16
+sh_type	kern/dwarf_elf.h	/^               uint32_t   sh_type;$/;"	m	struct:__anon12
 sh_type	kern/dwarf_elf.h	/^    uint32_t sh_type;$/;"	m	struct:Secthdr
 shiftcode	kern/console.c	/^static uint8_t shiftcode[256] =$/;"	v	file:
 shiftmap	kern/console.c	/^static uint8_t shiftmap[256] =$/;"	v	file:
@@ -2848,7 +2793,6 @@ static	obj/kern/kernel.asm	/^static long long$/;"	l
 static	obj/kern/kernel.asm	/^static uint16_t *crt_buf;$/;"	l
 static	obj/kern/kernel.asm	/^static uint16_t crt_pos;$/;"	l
 static	obj/kern/kernel.asm	/^static unsigned long long$/;"	l
-static	obj/kern/kernel.asm	/^static void *$/;"	l
 static	obj/kern/kernel.asm	/^static void cons_putc(int c);$/;"	l
 static	obj/kern/kernel.asm	/^static void$/;"	l
 static	obj/user/badsegment.asm	/^static inline int64_t$/;"	l
@@ -2983,19 +2927,19 @@ tf_rsp	inc/trap.h	/^	uintptr_t tf_rsp;$/;"	m	struct:Trapframe
 tf_ss	inc/trap.h	/^	uint16_t tf_ss;$/;"	m	struct:Trapframe
 tf_trapno	inc/trap.h	/^	uint64_t tf_trapno;$/;"	m	struct:Trapframe
 thisenv	lib/libmain.c	/^const volatile struct Env *thisenv;$/;"	v	typeref:struct:Env
-thisenv	obj/user/badsegment.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/breakpoint.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/buggyhello.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/buggyhello2.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/divzero.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/evilhello.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/faultread.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/faultreadkernel.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/faultwrite.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/faultwritekernel.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/hello.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/softint.asm	/^	thisenv = 0;$/;"	d
-thisenv	obj/user/testbss.asm	/^	thisenv = 0;$/;"	d
+thisenv	obj/user/badsegment.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/breakpoint.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/buggyhello.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/buggyhello2.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/divzero.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/evilhello.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/faultread.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/faultreadkernel.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/faultwrite.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/faultwritekernel.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/hello.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/softint.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
+thisenv	obj/user/testbss.asm	/^	thisenv = &envs[ENVX(curenv_id)]; $/;"	d
 tlb_invalidate	kern/pmap.c	/^tlb_invalidate(pml4e_t *pml4e, void *va)$/;"	f
 tlbflush	inc/x86.h	/^tlbflush(void)$/;"	f
 togglecode	kern/console.c	/^static uint8_t togglecode[256] =$/;"	v	file:
@@ -3004,7 +2948,7 @@ trap_dispatch	kern/trap.c	/^trap_dispatch(struct Trapframe *tf)$/;"	f	file:
 trap_init	kern/trap.c	/^trap_init(void)$/;"	f
 trap_init_percpu	kern/trap.c	/^trap_init_percpu(void)$/;"	f
 trapname	kern/trap.c	/^static const char *trapname(int trapno)$/;"	f	file:
-true	inc/types.h	/^enum { false, true };$/;"	e	enum:__anon1
+true	inc/types.h	/^enum { false, true };$/;"	e	enum:__anon16
 try_again	obj/kern/kernel.asm	/^try_again:$/;"	l
 ts	kern/trap.c	/^static struct Taskstate ts;$/;"	v	typeref:struct:Taskstate	file:
 ts_esp0	inc/mmu.h	/^	uintptr_t ts_esp0;	\/\/ Stack pointers and segment selectors$/;"	m	struct:Taskstate
@@ -3023,10 +2967,10 @@ ts_res2	inc/mmu.h	/^	uint64_t ts_res2;	\/\/ reserved in long mode$/;"	m	struct:T
 ts_res3	inc/mmu.h	/^    uint64_t ts_res3;$/;"	m	struct:Taskstate
 ts_res4	inc/mmu.h	/^    uint16_t ts_res4;$/;"	m	struct:Taskstate
 type	kern/multiboot.h	/^   uint32_t type;$/;"	m	struct:memory_map
-u	kern/dwarf.h	/^    } u[2];                 \/* Value. *\/$/;"	m	struct:_Dwarf_Attribute	typeref:union:_Dwarf_Attribute::__anon11
-u	kern/multiboot.h	/^   } u;$/;"	m	struct:multiboot_info	typeref:union:multiboot_info::__anon5
-u64	kern/dwarf.h	/^        uint64_t    u64;        \/* Unsigned value. *\/$/;"	m	union:_Dwarf_Attribute::__anon11
-u8p	kern/dwarf.h	/^        uint8_t     *u8p;       \/* Block data. *\/$/;"	m	union:_Dwarf_Attribute::__anon11
+u	kern/dwarf.h	/^    } u[2];                 \/* Value. *\/$/;"	m	struct:_Dwarf_Attribute	typeref:union:_Dwarf_Attribute::__anon7
+u	kern/multiboot.h	/^   } u;$/;"	m	struct:multiboot_info	typeref:union:multiboot_info::__anon1
+u64	kern/dwarf.h	/^        uint64_t    u64;        \/* Unsigned value. *\/$/;"	m	union:_Dwarf_Attribute::__anon7
+u8p	kern/dwarf.h	/^        uint8_t     *u8p;       \/* Block data. *\/$/;"	m	union:_Dwarf_Attribute::__anon7
 uint16_t	inc/types.h	/^typedef unsigned short uint16_t;$/;"	t
 uint32_t	inc/types.h	/^typedef unsigned int uint32_t;$/;"	t
 uint32_t	obj/kern/kernel.asm	/^uint32_t restrictive_type(uint32_t t1, uint32_t t2) {$/;"	l
@@ -3037,9 +2981,6 @@ uint64_t	obj/kern/kernel.asm	/^uint64_t$/;"	l
 uint8_t	inc/types.h	/^typedef unsigned char uint8_t;$/;"	t
 uint8_t	obj/kern/kernel.asm	/^uint8_t *$/;"	l
 uintptr_t	inc/types.h	/^typedef uint64_t uintptr_t;$/;"	t
-uintptr_t	obj/kern/kernel.asm	/^uintptr_t index_in_pdpt = PDPE(va);$/;"	l
-uintptr_t	obj/kern/kernel.asm	/^uintptr_t index_in_pgdir = PDX(va);$/;"	l
-uintptr_t	obj/kern/kernel.asm	/^uintptr_t index_in_pml4t = PML4(va);$/;"	l
 uintptr_t	obj/kern/kernel.asm	/^uintptr_t$/;"	l
 umain	user/badsegment.c	/^umain(int argc, char **argv)$/;"	f
 umain	user/breakpoint.c	/^umain(int argc, char **argv)$/;"	f
@@ -3061,7 +3002,6 @@ user_mem_assert	kern/pmap.c	/^user_mem_assert(struct Env *env, const void *va, s
 user_mem_check	kern/pmap.c	/^user_mem_check(struct Env *env, const void *va, size_t len, int perm)$/;"	f
 user_mem_check_addr	kern/pmap.c	/^static uintptr_t user_mem_check_addr;$/;"	v	file:
 user_test	gradelib.py	/^    def user_test(self, binary, *monitors, **kw):$/;"	m	class:Runner
-va	obj/kern/kernel.asm	/^	va = (void*)(PGSIZE * 100);$/;"	d
 va_arg	inc/stdarg.h	11;"	d
 va_copy	inc/stdarg.h	15;"	d
 va_end	inc/stdarg.h	13;"	d
@@ -3170,7 +3110,7 @@ width	obj/user/softint.asm	/^		width = -1;$/;"	d
 width	obj/user/testbss.asm	/^				width = 0;$/;"	d
 width	obj/user/testbss.asm	/^				width = precision, precision = -1;$/;"	d
 width	obj/user/testbss.asm	/^		width = -1;$/;"	d
-wpos	kern/console.c	/^	uint32_t wpos;$/;"	m	struct:__anon18	file:
+wpos	kern/console.c	/^	uint32_t wpos;$/;"	m	struct:__anon14	file:
 write_eflags	inc/x86.h	/^write_eflags(uint64_t eflags)$/;"	f
 x64_vm_init	kern/pmap.c	/^x64_vm_init(void)$/;"	f
 xchg	inc/x86.h	/^xchg(volatile uint32_t *addr,uint32_t newval){$/;"	f
