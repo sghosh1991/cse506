@@ -23,6 +23,7 @@ sys_cputs(const char *s, size_t len)
 	// LAB 3: Your code here.
 	//user_mem_assert(curenv, (void*)s, len, PTE_P | PTE_U);
 	// Print the string supplied by the user.
+	user_mem_assert(curenv, (void*)s, len, PTE_P | PTE_U);
 	cprintf("%.*s", len, s);
 }
 
@@ -90,7 +91,8 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 	case NSYSCALLS:
 		break;
 	default:
-		return -E_NO_SYS;
+		return -E_INVAL;
+		break;
 	}
 	return syscall_return;
 }
