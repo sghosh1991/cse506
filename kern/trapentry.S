@@ -51,6 +51,34 @@
    pusha,popa so you will find these macros handy.
  */
 
+TRAPHANDLER_NOEC(divide_entry, T_DIVIDE);
+TRAPHANDLER_NOEC(debug_entry, T_DEBUG);
+TRAPHANDLER_NOEC(nmi_entry, T_NMI);
+TRAPHANDLER_NOEC(brkpt_entry, T_BRKPT);
+TRAPHANDLER_NOEC(oflow_entry, T_OFLOW);
+TRAPHANDLER_NOEC(bound_entry, T_BOUND);
+TRAPHANDLER_NOEC(illop_entry, T_ILLOP);
+TRAPHANDLER_NOEC(device_entry, T_DEVICE);
+TRAPHANDLER(dblflt_entry, T_DBLFLT);
+TRAPHANDLER(tss_entry, T_TSS);
+TRAPHANDLER(segnp_entry, T_SEGNP);
+TRAPHANDLER(stack_entry, T_STACK);
+TRAPHANDLER(gpflt_entry, T_GPFLT);
+TRAPHANDLER(pgflt_entry, T_PGFLT);
+TRAPHANDLER_NOEC(fperr_entry, T_FPERR);
+TRAPHANDLER(align_entry, T_ALIGN);
+TRAPHANDLER_NOEC(mchk_entry, T_MCHK);
+TRAPHANDLER_NOEC(simderr_entry, T_SIMDERR);
+
+TRAPHANDLER_NOEC(syscall_entry, T_SYSCALL);
+
+/* setup hardware interrupts */
+TRAPHANDLER_NOEC(irq_timer_entry, IRQ_OFFSET + IRQ_TIMER);
+TRAPHANDLER_NOEC(irq_kbd_entry, IRQ_OFFSET + IRQ_KBD);
+TRAPHANDLER_NOEC(irq_serial_entry, IRQ_OFFSET + IRQ_SERIAL);
+TRAPHANDLER_NOEC(irq_spurious_entry, IRQ_OFFSET + IRQ_SPURIOUS);
+TRAPHANDLER_NOEC(irq_ide_entry, IRQ_OFFSET + IRQ_IDE);
+TRAPHANDLER_NOEC(irq_error_entry, IRQ_OFFSET + IRQ_ERROR);
 
 
 /*
@@ -59,4 +87,16 @@
  * Hint: Be sure to review the x64 calling convention from lab1
  *       for how to pass a pointer to the trapframe.
  */
+
+_alltraps:
+	subq $8,%rsp
+	movw %es, (%rsp)
+	subq $8,%rsp
+	movw %ds, (%rsp)
+	PUSHA
+	movw $GD_KD, %ax
+	movw %ax, %ds
+	movw %ax, %es
+	movq %rsp, %rdi
+	call trap
 

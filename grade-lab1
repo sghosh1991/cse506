@@ -24,6 +24,8 @@ def test_backtrace_count():
 @test(10, parent=test_jos)
 def test_backtrace_arguments():
     matches = re.findall(r"kern/init.c:[0-9]+: +test_backtrace\+[0-9]{16} +args:[0-9] +([0-9a-f]{16})", r.qemu.output, re.MULTILINE)
+
+
     assert_equal("\n".join(matches[:7]),
                  "\n".join("%016x" % n for n in [0,1,2,3,4,5]))
 
