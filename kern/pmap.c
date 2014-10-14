@@ -13,7 +13,6 @@
 #include <kern/env.h>
 
 #include <kern/cpu.h>
-//#line 19 "../kern/pmap.c"
 
 extern uint64_t pml4phys;
 #define BOOT_PAGE_TABLE_START ((uint64_t) KADDR((uint64_t) &pml4phys))
@@ -287,7 +286,7 @@ x64_vm_init(void)
 	//    - pages itself -- kernel RW, user NONE
 	// Your code goes here:
 	n = npages*sizeof(struct PageInfo);
-	boot_map_region(boot_pml4e, UPAGES, n, PADDR(pages), PTE_U);
+	boot_map_region(boot_pml4e, UPAGES, n, PADDR(pages), PTE_U|PTE_P);
 
 	//////////////////////////////////////////////////////////////////////
 	// Map the 'envs' array read-only by the user at linear address UENVS
@@ -311,6 +310,7 @@ x64_vm_init(void)
 	//     Permissions: kernel RW, user NONE
 	// Your code goes here:
 	boot_map_region(boot_pml4e, KSTACKTOP-KSTKSIZE, KSTKSIZE, PADDR(bootstack), PTE_W|PTE_P);
+//	boot_map_region(boot_pml4e, KSTACKTOP-PTSIZE, PTSIZE-KSTKSIZE, PADDR(bootstack+KSTKSIZE), PTE_W);
 
 	//////////////////////////////////////////////////////////////////////
 	// Map all of physical memory at KERNBASE. We have detected the number
@@ -323,7 +323,7 @@ x64_vm_init(void)
 	// Check that the initial page directory has been set up correctly.
 	// Initialize the SMP-related parts of the memory map
 	mem_init_mp();
-
+	//cprintf("after mem_init_mp()");	
 	check_boot_pml4e(boot_pml4e);
 
 	//////////////////////////////////////////////////////////////////////
@@ -361,9 +361,30 @@ mem_init_mp(void)
 	//     Permissions: kernel RW, user NONE
 	//
 	// LAB 4: Your code here:
+	
+	int i;
+	for (i=0; i < NCPU; i++)
+	{	
+		//cprintf("\n%x",kstacktop_i);
+		uint64_t kstacktop_i = KSTACKTOP - i * (KSTKSIZE + KSTKGAP);
+        	boot_map_region(boot_pml4e, (uintptr_t)(kstacktop_i - KSTKSIZE), KSTKSIZE, PADDR(percpu_kstacks[i]), PTE_W | PTE_P);
+	//	cprintf("\n%x",kstacktop_i);
+	}
 
+#if 0
+int i =0;
+    uint64_t kstacktop = KSTACKTOP;
+    for ( i =0; i < NCPU; i++ )
+    {	cprintf("\n%x",kstacktop);
+
+
+
+        boot_map_region(boot_pml4e, (uintptr_t)(kstacktop - KSTKSIZE),
+                        KSTKSIZE, PADDR(percpu_kstacks[i]), PTE_P| PTE_W);
+        kstacktop -= (KSTKSIZE + KSTKGAP);
+    }
+#endif
 }
-
 // --------------------------------------------------------------
 // Tracking of physical pages.
 // The 'pages' array has one 'struct PageInfo' entry per physical page.
@@ -425,6 +446,10 @@ page_init(void)
 		uint64_t va = KERNBASE + i*PGSIZE;
 		if (va>=BOOT_PAGE_TABLE_START && va<BOOT_PAGE_TABLE_END)
 			inuse = 1;
+
+		if (page2pa(&pages[i]) == MPENTRY_PADDR)
+			inuse=1;
+
 
 		pages[i].pp_ref = inuse;
 		pages[i].pp_link = NULL;
@@ -794,6 +819,20 @@ mmio_map_region(physaddr_t pa, size_t size)
 	// Hint: The staff solution uses boot_map_region.
 	//
 	// Your code here:
+
+	size_t rounded_size = ROUNDUP(size, PGSIZE);
+
+	if ((char*)base + rounded_size < (char*)MMIOLIM)
+	{
+		boot_map_region(boot_pml4e, base, rounded_size, pa, PTE_P | PTE_W | PTE_PCD | PTE_PWT);
+		base = (uintptr_t)((char*)base + rounded_size);
+	}
+	else
+		panic("mmio_map_region failed: size is exceeding limit");
+
+	return (void*)((char*)base - rounded_size);
+	
+	/*this will never execute*/
 	panic("mmio_map_region not implemented");
 }
 
@@ -1044,7 +1083,10 @@ check_boot_pml4e(pml4e_t *pml4e)
 			assert(check_va2pa(pml4e, base + KSTKGAP + i)
 			       == PADDR(percpu_kstacks[n]) + i);
 		for (i = 0; i < KSTKGAP; i += PGSIZE)
+			{
+			//cprintf("\nFaulting At = %x: CPU NUM: %d",base+i,n);	
 			assert(check_va2pa(pml4e, base + i) == ~0);
+		}
 	}
 
 	pdpe_t *pdpe = KADDR(PTE_ADDR(boot_pml4e[1]));
@@ -1082,25 +1124,25 @@ check_va2pa(pml4e_t *pml4e, uintptr_t va)
 	pte_t *pte;
 	pdpe_t *pdpe;
 	pde_t *pde;
-	// cprintf("%x", va);
+	//cprintf("%x", va);
 	pml4e = &pml4e[PML4(va)];
-	// cprintf(" %x %x " , PML4(va), *pml4e);
+	 //cprintf("\nPML4 %x %x " , PML4(va), *pml4e);
 	if(!(*pml4e & PTE_P))
 		return ~0;
 	pdpe = (pdpe_t *) KADDR(PTE_ADDR(*pml4e));
-	// cprintf(" %x %x " , pdpe, *pdpe);
+	 //cprintf("\nPDPE %x %x " , pdpe, *pdpe);
 	if (!(pdpe[PDPE(va)] & PTE_P))
 		return ~0;
 	pde = (pde_t *) KADDR(PTE_ADDR(pdpe[PDPE(va)]));
-	// cprintf(" %x %x " , pde, *pde);
+	//cprintf("\nPDE %x %x " , pde, *pde);
 	pde = &pde[PDX(va)];
 	if (!(*pde & PTE_P))
 		return ~0;
 	pte = (pte_t*) KADDR(PTE_ADDR(*pde));
-	// cprintf(" %x %x " , pte, *pte);
+	//cprintf("\nPTE %x %x " , pte, *pte);
 	if (!(pte[PTX(va)] & PTE_P))
 		return ~0;
-	// cprintf(" %x %x\n" , PTX(va),  PTE_ADDR(pte[PTX(va)]));
+	//cprintf("\n %x %x\n" , PTX(va),  PTE_ADDR(pte[PTX(va)]));
 	return PTE_ADDR(pte[PTX(va)]);
 }
 

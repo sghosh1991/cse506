@@ -124,9 +124,7 @@ trap_init(void)
     	SETGATE(idt[T_ALIGN], 1, GD_KT, align_entry, 0);  
     	SETGATE(idt[T_MCHK], 1, GD_KT, mchk_entry, 0);  
     	SETGATE(idt[T_SIMDERR], 1, GD_KT, simderr_entry, 0); 
-
     	SETGATE(idt[T_SYSCALL], 0, GD_KT, syscall_entry, 3);  
-  
     	SETGATE(idt[IRQ_OFFSET + IRQ_TIMER], 0, GD_KT, irq_timer_entry, 0);
    	SETGATE(idt[IRQ_OFFSET + IRQ_KBD], 0, GD_KT, irq_kbd_entry, 0);  
     	SETGATE(idt[IRQ_OFFSET + IRQ_SERIAL], 0, GD_KT, irq_serial_entry, 0);  
@@ -168,17 +166,23 @@ trap_init_percpu(void)
 	// user space on that CPU.
 	//
 	// LAB 4: Your code here:
+	
+	struct Taskstate *per_cpu_state = &thiscpu->cpu_ts;
+	per_cpu_state->ts_esp0 = KSTACKTOP - (KSTKSIZE + KSTKGAP) * cpunum();
 
 	// Setup a TSS so that we get the right stack
 	// when we trap to the kernel.
-	ts.ts_esp0 = KSTACKTOP;
+	//ts.ts_esp0 = KSTACKTOP;
 
 	// Initialize the TSS slot of the gdt.
-	SETTSS((struct SystemSegdesc64 *)((gdt_pd>>16)+40),STS_T64A, (uint64_t) (&ts),sizeof(struct Taskstate), 0);
+
+	gdt[(GD_TSS0 >> 3) + cpunum()] = SEG16(STS_T64A, (uint64_t)per_cpu_state, sizeof(struct Taskstate), 0);
+	gdt[(GD_TSS0 >> 3) + cpunum()].sd_s = 0;
+
+	//SETTSS((struct SystemSegdesc64 *)((gdt_pd>>16)+40),STS_T64A, (uint64_t) (&ts),sizeof(struct Taskstate), 0);
 	// Load the TSS selector (like other segment selectors, the
 	// bottom three bits are special; we leave them 0)
-	ltr(GD_TSS0);
-
+	ltr(GD_TSS0 + (cpunum() * sizeof(struct Segdesc)));
 	// Load the IDT
 	lidt(&idt_pd);
 }
@@ -311,8 +315,9 @@ trap(struct Trapframe *tf)
 		// Acquire the big kernel lock before doing any
 		// serious kernel work.
 		// LAB 4: Your code here.
+		lock_kernel();
 		assert(curenv);
-
+		//lock_kernel();
 		// Garbage collect if current enviroment is a zombie
 		if (curenv->env_status == ENV_DYING) {
 			env_free(curenv);

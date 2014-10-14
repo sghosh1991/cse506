@@ -29,6 +29,24 @@ sched_yield(void)
 	// below to halt the cpu.
 
 	// LAB 4: Your code here.
+	
+	/*setting the cur_env_id to zero so that if no process is executing on current cpu the search must begin from start of the envs arry*/
+	int i,  cur_env_id;
+	cur_env_id = 0;
+	if(thiscpu->cpu_env){
+		cur_env_id = ENVX(thiscpu->cpu_env->env_id);
+		cprintf("\n before scheduling call. curr_env_id : %d",cur_env_id);
+		}
+	for(i = (cur_env_id + 1)%NENV; i != cur_env_id; i = ((i + 1)%NENV))
+	{
+		if((envs[i].env_status == ENV_RUNNABLE))
+			cprintf("\nrunning env %d on CPU: %d",i,cpunum());
+			env_run(&envs[i]);
+	}
+	
+	//If loop exits then one interation has been completed. Now check if the current process is running on the current cpu.if not then go to sched halt
+	if((envs[cur_env_id].env_status == ENV_RUNNING) &&(envs[cur_env_id].env_cpunum == cpunum()))
+		env_run(thiscpu->cpu_env);
 
 	// sched_halt never returns
 	sched_halt();

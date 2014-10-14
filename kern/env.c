@@ -512,7 +512,7 @@ env_pop_tf(struct Trapframe *tf)
 {
 	// Record the CPU we are running on for user-space debugging
 	curenv->env_cpunum = cpunum();
-
+	cprintf("\nin pop tf\n");
 	__asm __volatile("movq %0,%%rsp\n"
 			 POPA
 			 "movw (%%rsp),%%es\n"
@@ -556,13 +556,18 @@ env_run(struct Env *e)
 			curenv->env_status = ENV_RUNNABLE;
 		}
 	}
+	cprintf("\nin env_run...cpu num: %d\n",cpunum());
 
 	curenv = e;
 	curenv->env_status = ENV_RUNNING;
 	curenv->env_runs++;
-
+	//cprintf("\nbefore unlock kernel");
+	unlock_kernel();
+	//cprintf("\nafter unlock kernel");
 	lcr3(curenv->env_cr3);
+	cprintf("\nswitch to user mode");
 	env_pop_tf(&(curenv->env_tf));
+	//cprintf("\n after pop_tf");
 	panic("env_run not yet implemented");
 	}
 
