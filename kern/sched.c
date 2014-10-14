@@ -30,7 +30,7 @@ sched_yield(void)
 
 	// LAB 4: Your code here.
 	
-	/*setting the cur_env_id to zero so that if no process is executing on current cpu the search must begin from start of the envs arry*/
+
 	int i,  cur_env_id;
 	cur_env_id = 0;
 	if(thiscpu->cpu_env){

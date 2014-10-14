@@ -72,6 +72,8 @@ i386_init(void)
 	// Touch all you want.
 	ENV_CREATE(user_yield, ENV_TYPE_USER);
 	ENV_CREATE(user_yield, ENV_TYPE_USER);
+	ENV_CREATE(user_yield, ENV_TYPE_USER);		
+	ENV_CREATE(user_yield, ENV_TYPE_USER);
 	cprintf("\nafter user yields");
 	//ENV_CREATE(user_yield, ENV_TYPE_USER);
 	//ENV_CREATE(user_yield, ENV_TYPE_USER);

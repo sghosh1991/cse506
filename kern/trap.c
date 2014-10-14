@@ -108,7 +108,7 @@ trap_init(void)
 	/* Initialize idt to point to each entry point */
 	SETGATE(idt[T_DIVIDE], 1, GD_KT, divide_entry, 0);
 	SETGATE(idt[T_DEBUG], 1, GD_KT, debug_entry, 0);  
-   	SETGATE(idt[T_NMI], 0, GD_KT, nmi_entry, 0);  
+   	SETGATE(idt[T_NMI], 1, GD_KT, nmi_entry, 0);  
     	SETGATE(idt[T_BRKPT], 1, GD_KT, brkpt_entry, 3);  
     	SETGATE(idt[T_OFLOW], 1, GD_KT, oflow_entry, 0);  
     	SETGATE(idt[T_BOUND], 1, GD_KT, bound_entry, 0);  
@@ -124,13 +124,13 @@ trap_init(void)
     	SETGATE(idt[T_ALIGN], 1, GD_KT, align_entry, 0);  
     	SETGATE(idt[T_MCHK], 1, GD_KT, mchk_entry, 0);  
     	SETGATE(idt[T_SIMDERR], 1, GD_KT, simderr_entry, 0); 
-    	SETGATE(idt[T_SYSCALL], 0, GD_KT, syscall_entry, 3);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_TIMER], 0, GD_KT, irq_timer_entry, 0);
-   	SETGATE(idt[IRQ_OFFSET + IRQ_KBD], 0, GD_KT, irq_kbd_entry, 0);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_SERIAL], 0, GD_KT, irq_serial_entry, 0);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_SPURIOUS], 0, GD_KT, irq_spurious_entry, 0);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_IDE], 0, GD_KT, irq_ide_entry, 0);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_ERROR], 0, GD_KT, irq_error_entry, 0);
+    	SETGATE(idt[T_SYSCALL], 1, GD_KT, syscall_entry, 3);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_TIMER], 1, GD_KT, irq_timer_entry, 0);
+   	SETGATE(idt[IRQ_OFFSET + IRQ_KBD], 1, GD_KT, irq_kbd_entry, 0);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_SERIAL], 1, GD_KT, irq_serial_entry, 0);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_SPURIOUS], 1, GD_KT, irq_spurious_entry, 0);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_IDE], 1, GD_KT, irq_ide_entry, 0);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_ERROR], 1, GD_KT, irq_error_entry, 0);
 
 
 
@@ -167,8 +167,12 @@ trap_init_percpu(void)
 	//
 	// LAB 4: Your code here:
 	
-	struct Taskstate *per_cpu_state = &thiscpu->cpu_ts;
-	per_cpu_state->ts_esp0 = KSTACKTOP - (KSTKSIZE + KSTKGAP) * cpunum();
+	
+	thiscpu->cpu_ts.ts_esp0 = KSTACKTOP - thiscpu->cpu_id * (KSTKSIZE + KSTKGAP);
+	SETTSS((struct SystemSegdesc64 *)(&(gdt[(GD_TSS0 >> 3)+thiscpu->cpu_id * 2])),STS_T64A, (uint64_t) (&(thiscpu->cpu_ts)), sizeof(struct Taskstate), 0);
+
+	
+	
 
 	// Setup a TSS so that we get the right stack
 	// when we trap to the kernel.
@@ -176,13 +180,14 @@ trap_init_percpu(void)
 
 	// Initialize the TSS slot of the gdt.
 
-	gdt[(GD_TSS0 >> 3) + cpunum()] = SEG16(STS_T64A, (uint64_t)per_cpu_state, sizeof(struct Taskstate), 0);
-	gdt[(GD_TSS0 >> 3) + cpunum()].sd_s = 0;
+
+	ltr(GD_TSS0+(thiscpu->cpu_id * 8 * 2));
+
+
 
 	//SETTSS((struct SystemSegdesc64 *)((gdt_pd>>16)+40),STS_T64A, (uint64_t) (&ts),sizeof(struct Taskstate), 0);
 	// Load the TSS selector (like other segment selectors, the
 	// bottom three bits are special; we leave them 0)
-	ltr(GD_TSS0 + (cpunum() * sizeof(struct Segdesc)));
 	// Load the IDT
 	lidt(&idt_pd);
 }
@@ -199,8 +204,8 @@ print_trapframe(struct Trapframe *tf)
 	// (so %cr2 is meaningful), print the faulting linear address.
 	if (tf == last_tf && tf->tf_trapno == T_PGFLT)
 		cprintf("  cr2  0x%08x\n", rcr2());
-	cprintf("  err  0x%08x", tf->tf_err);
-	// For page faults, print decoded fault error code:
+cprintf("  err  0x%08x", tf->tf_err);
+// For page faults, print decoded fault error code:
 	// U/K=fault occurred in user/kernel mode
 	// W/R=a write/read caused the fault
 	// PR=a protection violation caused the fault (NP=page not present).
@@ -277,6 +282,13 @@ trap_dispatch(struct Trapframe *tf)
 	// Handle clock interrupts. Don't forget to acknowledge the
 	// interrupt using lapic_eoi() before calling the scheduler!
 	// LAB 4: Your code here.
+	if(tf->tf_trapno == IRQ_OFFSET + IRQ_TIMER)
+	{
+		lapic_eoi();
+
+		sched_yield();
+		return;
+	}
 
 	// Unexpected trap: The user process or the kernel has a bug.
 	print_trapframe(tf);

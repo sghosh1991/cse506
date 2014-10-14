@@ -368,9 +368,9 @@ mem_init_mp(void)
 		//cprintf("\n%x",kstacktop_i);
 		uint64_t kstacktop_i = KSTACKTOP - i * (KSTKSIZE + KSTKGAP);
         	boot_map_region(boot_pml4e, (uintptr_t)(kstacktop_i - KSTKSIZE), KSTKSIZE, PADDR(percpu_kstacks[i]), PTE_W | PTE_P);
-	//	cprintf("\n%x",kstacktop_i);
+//		boot_map_region(boot_pml4e, kstacktop_i- (KSTKSIZE + KSTKGAP), KSTKGAP, PADDR(percpu_kstacks[i]) + KSTKSIZE, PTE_W);	
+//	cprintf("\n%x",kstacktop_i);
 	}
-
 #if 0
 int i =0;
     uint64_t kstacktop = KSTACKTOP;
@@ -383,8 +383,10 @@ int i =0;
                         KSTKSIZE, PADDR(percpu_kstacks[i]), PTE_P| PTE_W);
         kstacktop -= (KSTKSIZE + KSTKGAP);
     }
-#endif
+
 }
+
+#endif
 // --------------------------------------------------------------
 // Tracking of physical pages.
 // The 'pages' array has one 'struct PageInfo' entry per physical page.
@@ -397,6 +399,7 @@ int i =0;
 // allocator functions below to allocate and deallocate physical
 // memory via the page_free_list.
 //
+}
 	void
 page_init(void)
 {
