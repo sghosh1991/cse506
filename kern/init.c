@@ -63,25 +63,26 @@ i386_init(void)
 	lock_kernel();
 	// Starting non-boot CPUs
 	boot_aps();
-	cprintf("\nafter boot_aps()");
+	//cprintf("\nafter boot_aps()");
 #if defined(TEST)
 	// Don't touch -- used by grading script!
 	ENV_CREATE(TEST, ENV_TYPE_USER);
-	cprintf("afetr test program");
+	ENV_CREATE(TEST, ENV_TYPE_USER);	
+//	cprintf("afetr test program");
 #else
 	// Touch all you want.
 	ENV_CREATE(user_yield, ENV_TYPE_USER);
 	ENV_CREATE(user_yield, ENV_TYPE_USER);
 	ENV_CREATE(user_yield, ENV_TYPE_USER);		
-	ENV_CREATE(user_yield, ENV_TYPE_USER);
-	cprintf("\nafter user yields");
+	//ENV_CREATE(user_yield, ENV_TYPE_USER);
+	//cprintf("\nafter user yields");
 	//ENV_CREATE(user_yield, ENV_TYPE_USER);
 	//ENV_CREATE(user_yield, ENV_TYPE_USER);
 #endif // TEST*
 
 	// Schedule and run the first user environment!
 	sched_yield();
-	cprintf("\nafter sched yield");
+	//cprintf("\nafter sched yield");
 }
 
 // While boot_aps is booting a given CPU, it communicates the per-core

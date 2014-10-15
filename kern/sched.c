@@ -35,13 +35,13 @@ sched_yield(void)
 	cur_env_id = 0;
 	if(thiscpu->cpu_env){
 		cur_env_id = ENVX(thiscpu->cpu_env->env_id);
-		cprintf("\n before scheduling call. curr_env_id : %d",cur_env_id);
+		//cprintf("\n before scheduling call. curr_env_id : %d",cur_env_id);
 		}
 	for(i = (cur_env_id + 1)%NENV; i != cur_env_id; i = ((i + 1)%NENV))
 	{
-		if((envs[i].env_status == ENV_RUNNABLE))
-			cprintf("\nrunning env %d on CPU: %d",i,cpunum());
+		if((envs[i].env_status == ENV_RUNNABLE)){
 			env_run(&envs[i]);
+		}
 	}
 	
 	if((envs[cur_env_id].env_status == ENV_RUNNING) &&(envs[cur_env_id].env_cpunum == cpunum()))
@@ -67,7 +67,6 @@ for (i = 0; i < NENV; ++i) {
 	}
 	if (curenv && curenv->env_status == ENV_RUNNING)
 		env_run(curenv);
-
 #endif
 
 	// sched_halt never returns

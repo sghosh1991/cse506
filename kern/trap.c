@@ -106,31 +106,31 @@ trap_init(void)
 	extern void irq_error_entry();
 
 	/* Initialize idt to point to each entry point */
-	SETGATE(idt[T_DIVIDE], 1, GD_KT, divide_entry, 0);
-	SETGATE(idt[T_DEBUG], 1, GD_KT, debug_entry, 0);  
-   	SETGATE(idt[T_NMI], 1, GD_KT, nmi_entry, 0);  
-    	SETGATE(idt[T_BRKPT], 1, GD_KT, brkpt_entry, 3);  
-    	SETGATE(idt[T_OFLOW], 1, GD_KT, oflow_entry, 0);  
-    	SETGATE(idt[T_BOUND], 1, GD_KT, bound_entry, 0);  
-    	SETGATE(idt[T_ILLOP], 1, GD_KT, illop_entry, 0);  
-    	SETGATE(idt[T_DEVICE], 1, GD_KT, device_entry, 0);  
-    	SETGATE(idt[T_DBLFLT], 1, GD_KT, dblflt_entry, 0);  
-    	SETGATE(idt[T_TSS], 1, GD_KT, tss_entry, 0);  
-    	SETGATE(idt[T_SEGNP], 1, GD_KT, segnp_entry, 0);  
-    	SETGATE(idt[T_STACK], 1, GD_KT, stack_entry, 0);  
-    	SETGATE(idt[T_GPFLT], 1, GD_KT, gpflt_entry, 0);  
-    	SETGATE(idt[T_PGFLT], 1, GD_KT, pgflt_entry, 0);  
-    	SETGATE(idt[T_FPERR], 1, GD_KT, fperr_entry, 0);  
-    	SETGATE(idt[T_ALIGN], 1, GD_KT, align_entry, 0);  
-    	SETGATE(idt[T_MCHK], 1, GD_KT, mchk_entry, 0);  
-    	SETGATE(idt[T_SIMDERR], 1, GD_KT, simderr_entry, 0); 
-    	SETGATE(idt[T_SYSCALL], 1, GD_KT, syscall_entry, 3);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_TIMER], 1, GD_KT, irq_timer_entry, 0);
-   	SETGATE(idt[IRQ_OFFSET + IRQ_KBD], 1, GD_KT, irq_kbd_entry, 0);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_SERIAL], 1, GD_KT, irq_serial_entry, 0);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_SPURIOUS], 1, GD_KT, irq_spurious_entry, 0);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_IDE], 1, GD_KT, irq_ide_entry, 0);  
-    	SETGATE(idt[IRQ_OFFSET + IRQ_ERROR], 1, GD_KT, irq_error_entry, 0);
+	SETGATE(idt[T_DIVIDE], 0, GD_KT, divide_entry, 0);
+	SETGATE(idt[T_DEBUG], 0, GD_KT, debug_entry, 0);  
+   	SETGATE(idt[T_NMI], 0, GD_KT, nmi_entry, 0);  
+    	SETGATE(idt[T_BRKPT],0 , GD_KT, brkpt_entry, 3);  
+    	SETGATE(idt[T_OFLOW], 0, GD_KT, oflow_entry, 0);  
+    	SETGATE(idt[T_BOUND], 0, GD_KT, bound_entry, 0);  
+    	SETGATE(idt[T_ILLOP], 0, GD_KT, illop_entry, 0);  
+    	SETGATE(idt[T_DEVICE], 0, GD_KT, device_entry, 0);  
+    	SETGATE(idt[T_DBLFLT], 0, GD_KT, dblflt_entry, 0);  
+    	SETGATE(idt[T_TSS], 0, GD_KT, tss_entry, 0);  
+    	SETGATE(idt[T_SEGNP], 0, GD_KT, segnp_entry, 0);  
+    	SETGATE(idt[T_STACK], 0, GD_KT, stack_entry, 0);  
+    	SETGATE(idt[T_GPFLT], 0, GD_KT, gpflt_entry, 0);  
+    	SETGATE(idt[T_PGFLT], 0, GD_KT, pgflt_entry, 0);  
+    	SETGATE(idt[T_FPERR], 0, GD_KT, fperr_entry, 0);  
+    	SETGATE(idt[T_ALIGN], 0, GD_KT, align_entry, 0);  
+    	SETGATE(idt[T_MCHK], 0, GD_KT, mchk_entry, 0);  
+    	SETGATE(idt[T_SIMDERR], 0, GD_KT, simderr_entry, 0); 
+    	SETGATE(idt[T_SYSCALL], 0, GD_KT, syscall_entry, 3);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_TIMER], 0, GD_KT, irq_timer_entry, 0);
+   	SETGATE(idt[IRQ_OFFSET + IRQ_KBD], 0, GD_KT, irq_kbd_entry, 0);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_SERIAL], 0, GD_KT, irq_serial_entry, 0);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_SPURIOUS], 0, GD_KT, irq_spurious_entry, 0);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_IDE], 0, GD_KT, irq_ide_entry, 0);  
+    	SETGATE(idt[IRQ_OFFSET + IRQ_ERROR], 0, GD_KT, irq_error_entry, 0);
 
 
 
@@ -167,11 +167,9 @@ trap_init_percpu(void)
 	//
 	// LAB 4: Your code here:
 	
-/*	
+	
 	thiscpu->cpu_ts.ts_esp0 = KSTACKTOP - thiscpu->cpu_id * (KSTKSIZE + KSTKGAP);
-	SETTSS((struct SystemSegdesc64 *)(&(gdt[(GD_TSS0 >> 3)+thiscpu->cpu_id * 2])),STS_T64A, (uint64_t) (&(thiscpu->cpu_ts)), sizeof(struct Taskstate), 0);
-
-*/	
+	SETTSS((struct SystemSegdesc64 *)(&(gdt[(GD_TSS0 >> 3)+thiscpu->cpu_id * 2])),STS_T64A, (uint64_t) (&(thiscpu->cpu_ts)), sizeof(struct Taskstate), 0);	
 	
 
 	// Setup a TSS so that we get the right stack
@@ -186,11 +184,16 @@ trap_init_percpu(void)
 
 	//new soln
 
-	struct Taskstate *per_cpu_state = &thiscpu->cpu_ts;
-	per_cpu_state->ts_esp0 = KSTACKTOP - (KSTKSIZE + KSTKGAP) * cpunum();
-	gdt[(GD_TSS0 >> 3) + cpunum()] = SEG16(STS_T64A, (uint64_t)per_cpu_state, sizeof(struct Taskstate), 0);
-	gdt[(GD_TSS0 >> 3) + cpunum()].sd_s = 0;
-	ltr(GD_TSS0 + (cpunum() * sizeof(struct Segdesc)));
+	//SEG16(type,base,limit,DPL)
+
+	//struct Taskstate *per_cpu_state = &thiscpu->cpu_ts;
+	//per_cpu_state->ts_esp0 = KSTACKTOP - (KSTKSIZE + KSTKGAP) * cpunum();
+	//gdt[(GD_TSS0 >> 3) + cpunum()] = SEG16(STS_T64A, (uint64_t)per_cpu_state, sizeof(struct Taskstate), 0);
+	
+	//gdt[(GD_TSS0 >> 3) + cpunum()].sd_s = 0;
+	//cprintf("\n in trap_init_percpu Value of Segdesc %d",sizeof(struct Segdesc));
+	//SETTSS((struct SystemSegdesc64 *)(GD_TSS0>>3 + 2*cpunum())),STS_T64A, (uint64_t) (&ts),sizeof(struct Taskstate), 0);
+	ltr(GD_TSS0 + 2*(cpunum() * sizeof(struct Segdesc)));
 
 	//new soln
 
