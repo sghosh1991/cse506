@@ -167,11 +167,11 @@ trap_init_percpu(void)
 	//
 	// LAB 4: Your code here:
 	
-	
+/*	
 	thiscpu->cpu_ts.ts_esp0 = KSTACKTOP - thiscpu->cpu_id * (KSTKSIZE + KSTKGAP);
 	SETTSS((struct SystemSegdesc64 *)(&(gdt[(GD_TSS0 >> 3)+thiscpu->cpu_id * 2])),STS_T64A, (uint64_t) (&(thiscpu->cpu_ts)), sizeof(struct Taskstate), 0);
 
-	
+*/	
 	
 
 	// Setup a TSS so that we get the right stack
@@ -181,7 +181,19 @@ trap_init_percpu(void)
 	// Initialize the TSS slot of the gdt.
 
 
-	ltr(GD_TSS0+(thiscpu->cpu_id * 8 * 2));
+//	ltr(GD_TSS0+(cpunum()*sizeof(struct Segdesc)));
+
+
+	//new soln
+
+	struct Taskstate *per_cpu_state = &thiscpu->cpu_ts;
+	per_cpu_state->ts_esp0 = KSTACKTOP - (KSTKSIZE + KSTKGAP) * cpunum();
+	gdt[(GD_TSS0 >> 3) + cpunum()] = SEG16(STS_T64A, (uint64_t)per_cpu_state, sizeof(struct Taskstate), 0);
+	gdt[(GD_TSS0 >> 3) + cpunum()].sd_s = 0;
+	ltr(GD_TSS0 + (cpunum() * sizeof(struct Segdesc)));
+
+	//new soln
+
 
 
 

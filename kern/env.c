@@ -567,7 +567,7 @@ env_run(struct Env *e)
 	lcr3(curenv->env_cr3);
 	cprintf("\nswitch to user mode");
 	env_pop_tf(&(curenv->env_tf));
-	//cprintf("\n after pop_tf");
+	cprintf("\n after pop_tf");
 	panic("env_run not yet implemented");
 	}
 

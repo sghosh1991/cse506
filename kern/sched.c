@@ -44,9 +44,31 @@ sched_yield(void)
 			env_run(&envs[i]);
 	}
 	
-	//If loop exits then one interation has been completed. Now check if the current process is running on the current cpu.if not then go to sched halt
 	if((envs[cur_env_id].env_status == ENV_RUNNING) &&(envs[cur_env_id].env_cpunum == cpunum()))
 		env_run(thiscpu->cpu_env);
+
+
+#if 0
+struct Env *e;
+int i, cur=0;
+	if (curenv) cur=ENVX(curenv->env_id);
+		else cur = 0;
+
+
+
+for (i = 0; i < NENV; ++i) {
+		int j = (cur+i) % NENV;
+		if (j < 2) cprintf("envs[%x].env_status: %x\n", j, envs[j].env_status);
+		if (envs[j].env_status == ENV_RUNNABLE) {
+			if (j == 1) 
+				cprintf("\n");
+			env_run(envs + j);
+		}
+	}
+	if (curenv && curenv->env_status == ENV_RUNNING)
+		env_run(curenv);
+
+#endif
 
 	// sched_halt never returns
 	sched_halt();
