@@ -47,7 +47,10 @@ sched_yield(void)
 	//cprintf("\nAfter loop Value of i %d",i);
 	
 	if(((envs[cur_env_id].env_status == ENV_RUNNING)||(envs[cur_env_id].env_status == ENV_RUNNABLE)) &&(envs[cur_env_id].env_cpunum == cpunum()))
-		env_run(thiscpu->cpu_env);
+		{
+		//env_run(thiscpu->cpu_env);
+		env_run(&envs[cur_env_id]);
+		}
 
 
 #if 0
