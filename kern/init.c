@@ -67,13 +67,13 @@ i386_init(void)
 #if defined(TEST)
 	// Don't touch -- used by grading script!
 	ENV_CREATE(TEST, ENV_TYPE_USER);
-	ENV_CREATE(TEST, ENV_TYPE_USER);	
+//	ENV_CREATE(TEST, ENV_TYPE_USER);	
 //	cprintf("afetr test program");
 #else
 	// Touch all you want.
-	ENV_CREATE(user_yield, ENV_TYPE_USER);
-	ENV_CREATE(user_yield, ENV_TYPE_USER);
-	ENV_CREATE(user_yield, ENV_TYPE_USER);		
+//	ENV_CREATE(user_yield, ENV_TYPE_USER);
+	ENV_CREATE(user_dumbfork, ENV_TYPE_USER);
+//	ENV_CREATE(user_yield, ENV_TYPE_USER);		
 	//ENV_CREATE(user_yield, ENV_TYPE_USER);
 	//cprintf("\nafter user yields");
 	//ENV_CREATE(user_yield, ENV_TYPE_USER);
