@@ -386,12 +386,11 @@ page_fault_handler(struct Trapframe *tf)
 	fault_va = rcr2();
 
 	// Handle kernel-mode page faults.
-
 	// LAB 3: Your code here.
-
-	if ((tf->tf_cs & 0x03) == 0)
+	if ((tf->tf_cs & 0x03) == 0) {
 		panic("ERROR: Page fault occurred in kernel mode : Fault va=%x\n",fault_va);	
-
+		return;
+	}
 
 	// We've already handled kernel-mode exceptions, so if we get here,
 	// the page fault happened in user mode.
@@ -437,6 +436,7 @@ page_fault_handler(struct Trapframe *tf)
 		return;
 	}
 
+	// Accessibility checking
 	user_mem_assert(curenv, (void *)(UXSTACKTOP-8), 8, PTE_P|PTE_W|PTE_U);
 	user_mem_assert(curenv, (void *)(curenv->env_pgfault_upcall), 8, PTE_P|PTE_U);
 
@@ -456,6 +456,8 @@ page_fault_handler(struct Trapframe *tf)
 		tf->tf_rsp = UXSTACKTOP;
 
 	tf->tf_rsp -= sizeof(struct UTrapframe);
+	// Once the user environment runs out of space on the exception stack
+	// then, we destroy this environment since there is no more resource
 	if (tf->tf_rsp < UXSTACKTOP-PGSIZE) {
 		cprintf("[%08x] user fault va %08x ip %08x\n",
                         curenv->env_id, fault_va, tf->tf_rip);
