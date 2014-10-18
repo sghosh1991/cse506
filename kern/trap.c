@@ -427,10 +427,45 @@ page_fault_handler(struct Trapframe *tf)
 
 	// LAB 4: Your code here.
 
-	// Destroy the environment that caused the fault.
-	cprintf("[%08x] user fault va %08x ip %08x\n",
-		curenv->env_id, fault_va, tf->tf_rip);
-	print_trapframe(tf);
-	env_destroy(curenv);
+	// Check if there's page fault upcall.
+	// If there isn't, destroy the environment that caused the fault.
+	if (!curenv->env_pgfault_upcall) {
+		cprintf("[%08x] user fault va %08x ip %08x\n",
+			curenv->env_id, fault_va, tf->tf_rip);
+		print_trapframe(tf);
+		env_destroy(curenv);
+		return;
+	}
+
+	user_mem_assert(curenv, (void *)(UXSTACKTOP-8), 8, PTE_P|PTE_W|PTE_U);
+	user_mem_assert(curenv, (void *)(curenv->env_pgfault_upcall), 8, PTE_P|PTE_U);
+
+	// initialize utf
+	struct UTrapframe utf;
+	utf.utf_fault_va = fault_va;
+	utf.utf_err  = tf->tf_err;
+	utf.utf_regs = tf->tf_regs;
+	utf.utf_rip  = tf->tf_rip;
+	utf.utf_eflags = tf->tf_eflags;
+	utf.utf_rsp  = tf->tf_rsp;	
+
+	// Check if it is a nested page fault
+	if (tf->tf_rsp >= UXSTACKTOP-PGSIZE && tf->tf_rsp <= UXSTACKTOP-1)
+		tf->tf_rsp -= 8;
+	else
+		tf->tf_rsp = UXSTACKTOP;
+
+	tf->tf_rsp -= sizeof(struct UTrapframe);
+	if (tf->tf_rsp < UXSTACKTOP-PGSIZE) {
+		cprintf("[%08x] user fault va %08x ip %08x\n",
+                        curenv->env_id, fault_va, tf->tf_rip);
+                print_trapframe(tf);
+                env_destroy(curenv);
+                return;
+	}
+	* (struct UTrapframe *)(tf->tf_rsp) = utf;
+
+	tf->tf_rip = (uintptr_t)curenv->env_pgfault_upcall;
+	env_run(curenv);
 }
 
