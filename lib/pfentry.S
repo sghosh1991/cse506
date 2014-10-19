@@ -86,14 +86,14 @@ _pgfault_upcall:
 	movq %rbx, 136(%rsp)
 
 	# restore all registers in regs
-        POPA	
+        POPA_
 
 	// Restore eflags from the stack.  After you do this, you can
 	// no longer use arithmetic operations or anything else that
 	// modifies eflags.
 	// LAB 4: Your code here.
 	addq $8, %rsp
-	popfl
+	popfq
 
 	// Switch back to the adjusted trap-time stack.
 	// LAB 4: Your code here.
