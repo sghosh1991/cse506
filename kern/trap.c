@@ -425,6 +425,7 @@ page_fault_handler(struct Trapframe *tf)
 	//   (the 'tf' variable points at 'curenv->env_tf').
 
 	// LAB 4: Your code here.
+	// Note: Have been inspired by the code in the webpage: http://read.pudn.com/downloads170/sourcecode/os/783555/mit-jos/kern/trap.c__.htm	
 
 	// Check if there's page fault upcall.
 	// If there isn't, destroy the environment that caused the fault.
