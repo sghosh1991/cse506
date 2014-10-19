@@ -387,6 +387,75 @@ static int
 sys_ipc_try_send(envid_t envid, uint32_t value, void *srcva, unsigned perm)
 {
 	// LAB 4: Your code here.
+
+	struct Env *env;
+	pte_t *pte;
+
+	if (envid2env(envid, &env, 0) < 0) {
+		cprintf("sys_ipc_try_send failed: Bad env\n");
+		return -E_BAD_ENV;
+	}
+
+	if ((env->env_status != ENV_NOT_RUNNABLE) || (env->env_ipc_recving != 1))
+	    return -E_IPC_NOT_RECV;
+	
+	if ((uint64_t)srcva < UTOP){
+		//Check if the page in alligned.
+	   	if ((uint64_t)srcva % PGSIZE != 0) {
+			cprintf("sys_ipc_try_send failed: Page is not alligned\n");
+	      		return -E_INVAL;
+		}
+
+	  	//Check if srcva is mapped to in caller's address space.
+	   	pte = pml4e_walk(curenv->env_pml4e, srcva, 0);
+
+	   	if (!pte || !((*pte) & PTE_P)) {
+	      		cprintf("\nsys_ipc_try_send failed: Page is not mapped to srcva\n");
+	      		return -E_INVAL;
+	   	}
+	
+	   	//Check for permissions
+	   	if (!(perm & PTE_U) || !(perm & PTE_P)) {
+	      		cprintf("\nsys_try_ipc_send failed: Invalid permissions\n");
+	      		return -E_INVAL;
+	   	}
+	   	if (perm &(!PTE_USER)) {
+       	      		cprintf("sys_try_ipc_send failed: Invalid permissions\n");
+       	      		return - E_INVAL;
+    	   	}
+	   	if (!((*pte) & PTE_W) && (perm & PTE_W)) {
+	      		cprintf("\nsys_try_ipc_send failed: Writing on read-only page\n");
+	      		return -E_INVAL; 
+	   	}
+
+	}
+
+	env->env_ipc_recving = 0;
+	env->env_ipc_value = value;
+	env->env_ipc_from = curenv->env_id;
+	env->env_ipc_perm = 0;
+	
+	if ((uint64_t)srcva < UTOP) {
+		pte_t *pite;
+		struct PageInfo *pp;
+	   	pp = page_lookup(curenv->env_pml4e, srcva, &pte);
+	   
+	   	if (!pp) {
+	      		cprintf("\nsys_try_ipc_send: Page not found\n");
+	      		return -1;
+	   	}
+
+	   	if (page_insert(env->env_pml4e, pp, env->env_ipc_dstva, perm) < 0)
+	       		return -E_NO_MEM;
+
+	   env->env_ipc_perm = perm;
+	}
+	
+	env->env_status = ENV_RUNNABLE;
+	return 0;
+
+
+
 	panic("sys_ipc_try_send not implemented");
 }
 
@@ -405,6 +474,25 @@ static int
 sys_ipc_recv(void *dstva)
 {
 	// LAB 4: Your code here.
+	if (!curenv)
+		return -E_INVAL;
+	if ((uint64_t)dstva > UTOP || (ROUNDDOWN(dstva,PGSIZE)!=dstva && ROUNDUP(dstva,PGSIZE)!=dstva)) {
+		cprintf("error dstva is not valid dstva=%x\n",dstva);
+		return -E_INVAL;
+	}
+
+
+	curenv->env_tf.tf_regs.reg_rax = 0;
+	
+	curenv->env_ipc_dstva = dstva;
+        curenv->env_ipc_perm = 0;
+        curenv->env_ipc_from = 0;
+        curenv->env_ipc_recving = 1; //Receiver is ready to listen
+        curenv->env_status = ENV_NOT_RUNNABLE; //Block the execution of current env.
+
+	sched_yield(); //Give up the cpu. Don't return, instead env_run some other env.
+
+
 	panic("sys_ipc_recv not implemented");
 	return 0;
 }
@@ -459,6 +547,16 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 	case SYS_env_set_pgfault_upcall:
 		syscall_return = sys_env_set_pgfault_upcall(a1, (void *)a2);
 		break;
+	case SYS_ipc_try_send:
+                 syscall_return = sys_ipc_try_send(a1, a2, (void*)a3, a4);
+                 break;
+
+	case SYS_ipc_recv:
+                 syscall_return = sys_ipc_recv((void*)a1);
+                 break;
+
+
+
 	default:
 		return -E_INVAL;
 		break;
