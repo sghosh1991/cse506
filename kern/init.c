@@ -72,7 +72,7 @@ i386_init(void)
 #else
 	// Touch all you want.
 //	ENV_CREATE(user_yield, ENV_TYPE_USER);
-	ENV_CREATE(user_forktree, ENV_TYPE_USER);
+	ENV_CREATE(user_sendpage, ENV_TYPE_USER);
 //	ENV_CREATE(user_yield, ENV_TYPE_USER);		
 	//ENV_CREATE(user_yield, ENV_TYPE_USER);
 	//cprintf("\nafter user yields");
