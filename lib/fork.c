@@ -143,6 +143,16 @@ fork(void)
 		    (uvpt[PGNUM(addr)] & PTE_P) > 0 && 
 		    (uvpt[PGNUM(addr)] & PTE_U) > 0)
 			duppage (envid, PGNUM(addr));
+	
+		if ((uvpml4e[VPML4E(addr)] & PTE_P) <= 0) {
+			addr += (0x4000000000 - PGSIZE);
+		}
+		else if ((uvpde[VPDPE(addr)] & PTE_P) <= 0) {
+			addr += (0x30000000 - PGSIZE);
+		}
+		else if ((uvpd[VPD(addr)] & PTE_P) <= 0) {
+			addr += (0x200000 - PGSIZE);
+		}
 	}
 	/*
 	uint64_t pn;
