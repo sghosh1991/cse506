@@ -74,20 +74,28 @@ duppage(envid_t envid, unsigned pn)
 
 	// LAB 4: Your code here.
 	void *addr = (void *)((uint64_t)pn * PGSIZE);
-	pte_t pte = uvpt[PGNUM(addr)];	
+	int perm = uvpt[PGNUM(addr)] & PTE_SYSCALL;	
 	
-	if ((pte & PTE_W) || (pte & PTE_COW)) {
+	if (perm & PTE_SHARE) {
+		if ((r = sys_page_map(0, addr, envid, addr, perm)) < 0)
+			panic("ERROR: sys_page_map %e", r);
+		return 0;
+	}
+
+	if ((perm & PTE_W) || (perm & PTE_COW)) {
 		// Copy the mapping from parent to child
-		if ((r = sys_page_map(0, addr, envid, addr, PTE_COW|PTE_U|PTE_P)) < 0){
+		perm &= ~PTE_W;
+		perm |= PTE_COW;
+		if ((r = sys_page_map(0, addr, envid, addr, perm)) < 0){
 			panic("1. ERROR: sys_page_map %e", r);
 		}
 
 		// Mark our mapping copy-on-write as well.
-		if ((r = sys_page_map(0, addr, 0, addr, PTE_COW|PTE_U|PTE_P)) < 0)
+		if ((r = sys_page_map(0, addr, 0, addr, perm)) < 0)
 			panic("2. ERROR: sys_page_map %e", r);
 	}
 	else { // Only readable page
-		if ((r = sys_page_map(0, addr, envid, addr, PTE_U|PTE_P)) < 0);
+		if ((r = sys_page_map(0, addr, envid, addr, perm)) < 0);
                         panic("3. ERROR: sys_page_map %e", r);
 	}	
 

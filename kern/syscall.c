@@ -159,6 +159,8 @@ sys_env_set_trapframe(envid_t envid, struct Trapframe *tf)
 	if ((r = envid2env(envid, &env, 1) < 0))
 		return -E_BAD_ENV;
 
+	user_mem_assert(env, tf, sizeof(struct Trapframe), PTE_U);
+
 	env->env_tf = *tf;
 	env->env_tf.tf_cs = GD_UT | 3;
 	env->env_tf.tf_eflags |= FL_IF;
