@@ -327,7 +327,8 @@ sys_page_map(envid_t srcenvid, void *srcva,
 	}
 
 	if(page_insert(env2->env_pml4e, page_var, dstva, perm))
-	{
+	{	
+		cprintf("\nNo Memory\n");
 		page_free(page_var);
 		return -E_NO_MEM;
 	}

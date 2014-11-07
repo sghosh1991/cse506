@@ -95,8 +95,8 @@ duppage(envid_t envid, unsigned pn)
 			panic("2. ERROR: sys_page_map %e", r);
 	}
 	else { // Only readable page
-		if ((r = sys_page_map(0, addr, envid, addr, perm)) < 0);
-                        panic("3. ERROR: sys_page_map %e", r);
+		if ((r = sys_page_map(0, addr, envid, addr, perm)) < 0)
+                        panic("3. ERROR: sys_page_map %d", r);
 	}	
 
 	//panic("duppage not implemented");
