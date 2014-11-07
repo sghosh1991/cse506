@@ -179,7 +179,8 @@ env_setup_vm(struct Env *e)
 	struct PageInfo *p = NULL, *pdpe_env_page=NULL, *pgdir_env_page = NULL;
 
 	// Allocate a page for the page directory
-	if (!(p = page_alloc(0)))
+	//if (!(p = page_alloc(0)))
+	if (!(p = page_alloc(ALLOC_ZERO)))
 		return -E_NO_MEM;
 
 	// Now, set e->env_pml4e and initialize the page directory.

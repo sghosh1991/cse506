@@ -162,17 +162,6 @@ fork(void)
 			addr += (0x200000 - PGSIZE);
 		}
 	}
-	/*
-	uint64_t pn;
-	pn = UTOP - PGSIZE;
-	while (pn >= 0) {
-		if ((uvpd[PDX(pn)] & PTE_P) && (uvpt[PGNUM(pn)] & PTE_P)
-			&& (uvpt[PGNUM(pn)] & PTE_U)) {
-			duppage(envid, PGNUM(pn));
-		}
-		pn -= PGSIZE;		
-	}
-	*/
 
 	int r;
 	// Parent allocae a page for child's exception stack

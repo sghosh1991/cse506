@@ -235,7 +235,8 @@ sys_page_alloc(envid_t envid, void *va, int perm)
 		cprintf("\nI faulted because the permissions for the page allocation are not correct\n");
 		return -E_INVAL;
 	}
-	if(!(page_var = page_alloc(0)))
+	if(!(page_var = page_alloc(ALLOC_ZERO)))
+	//if(!(page_var = page_alloc(0)))
 	{
 		cprintf("\nNo more free memory left\n");
 		return -E_NO_MEM;
