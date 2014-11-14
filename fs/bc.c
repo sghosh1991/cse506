@@ -33,6 +33,15 @@ bc_pgfault(struct UTrapframe *utf)
 	// Hint: first round addr to page boundary.
 	//
 	// LAB 5: you code here:
+	
+
+	 void *block_addr = ROUNDDOWN(addr, BLKSIZE);
+
+        if((r = sys_page_alloc(thisenv->env_id, block_addr, PTE_SYSCALL)) < 0)
+                panic("bc_pgfault:failed(err = %d) to map page at block %d\n",r,blockno);
+
+        if((r = ide_read(BLKSECTS * blockno, block_addr, BLKSECTS) < 0))
+                panic("bc_pgfault:failed to read the sector\n");
 
 }
 

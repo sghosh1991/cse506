@@ -166,6 +166,17 @@ serve_read(envid_t envid, union Fsipc *ipc)
 {
 	struct Fsreq_read *req = &ipc->read;
 	struct Fsret_read *ret = &ipc->readRet;
+	struct OpenFile *open_file;
+	int r;
+	int count = req->req_n;
+	int total_bytes_read = 0;
+	
+	if (count > PGSIZE)
+		{
+
+		count = PGSIZE;
+		}
+
 
 	if (debug)
 		cprintf("serve_read %08x %08x %08x\n", envid, req->req_fileid, req->req_n);
@@ -177,7 +188,19 @@ serve_read(envid_t envid, union Fsipc *ipc)
 	// so filling in ret will overwrite req.
 	//
 	// LAB 5: Your code here
-	panic("serve_read not implemented");
+
+
+	// Get all info from the file_id
+       if ((r = openfile_lookup(envid, req->req_fileid, &open_file)) < 0)
+                return r;
+
+//	cprintf("toReadBytes=%d r=%x ret=%x o->o_fd->fd_offset=%d\n",toReadBytes,r,ret,o->o_fd->fd_offset);
+       total_bytes_read = file_read(open_file->o_file, (void*)ret, count, open_file->o_fd->fd_offset);
+       open_file->o_fd->fd_offset+=total_bytes_read;
+       return total_bytes_read;
+
+
+	//panic("serve_read not implemented");
 }
 
 
