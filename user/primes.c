@@ -39,13 +39,13 @@ void
 umain(int argc, char **argv)
 {
 	int i, id;
-
+	//cprintf("in user_primes before fork()");
 	// fork the first prime process in the chain
 	if ((id = fork()) < 0)
 		panic("fork: %e", id);
 	if (id == 0)
 		primeproc();
-
+	//cprintf("in user_primes after fork()");
 	// feed all the integers through
 	for (i = 2; ; i++)
 		ipc_send(id, i, 0, 0);
