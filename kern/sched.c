@@ -30,25 +30,20 @@ sched_yield(void)
 
 	// LAB 4: Your code here.
 	
-	//cprintf("\nin scheduler");
 	int i,  cur_env_id;
 	cur_env_id = 0;
 	if(thiscpu->cpu_env){
 		cur_env_id = ENVX(thiscpu->cpu_env->env_id);
-	//	cprintf("\n before scheduling call. curr_env_id : %d",cur_env_id);
 		}
 	for(i = (cur_env_id + 1)%NENV; i != cur_env_id; i = ((i + 1)%NENV))
 	{
-		//cprintf("");
 		if((envs[i].env_status == ENV_RUNNABLE))
 			env_run(&envs[i]);
 		
 	}
-	//cprintf("\nAfter loop Value of i %d",i);
 	
 	if(((envs[cur_env_id].env_status == ENV_RUNNING)||(envs[cur_env_id].env_status == ENV_RUNNABLE)) &&(envs[cur_env_id].env_cpunum == cpunum()))
 		{
-		//env_run(thiscpu->cpu_env);
 		env_run(&envs[cur_env_id]);
 		}
 

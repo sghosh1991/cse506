@@ -530,7 +530,8 @@ static int
 sys_time_msec(void)
 {
 	// LAB 6: Your code here.
-	panic("sys_time_msec not implemented");
+	return time_msec();
+	//panic("sys_time_msec not implemented");
 }
 
 
@@ -592,6 +593,10 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 
 	case SYS_env_set_trapframe:
 		syscall_return = sys_env_set_trapframe((envid_t) a1, (struct Trapframe *)a2);
+		break;
+
+	case SYS_time_msec:
+		syscall_return = sys_time_msec();
 		break;
 
 	default:
