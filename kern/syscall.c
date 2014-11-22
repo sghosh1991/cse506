@@ -13,6 +13,8 @@
 #include <kern/sched.h>
 #include <kern/time.h>
 
+#include <kern/e1000.h>
+
 // Print a string to the system console.
 // The string is exactly 'len' characters long.
 // Destroys the environment on memory errors.
@@ -534,7 +536,12 @@ sys_time_msec(void)
 	//panic("sys_time_msec not implemented");
 }
 
-
+static 
+int sys_net_transmit(char *data2TX, int len) {
+	if ((uintptr_t) data2TX >= UTOP)
+		return -E_INVAL;
+	return e1000_transmit(data2TX, len);
+}
 
 // Dispatches to the correct kernel function, passing the arguments.
 int64_t
@@ -597,6 +604,10 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 
 	case SYS_time_msec:
 		syscall_return = sys_time_msec();
+		break;
+	
+	case SYS_net_transmit:
+		syscall_return = sys_net_transmit((char *)a1, (int) a2);
 		break;
 
 	default:

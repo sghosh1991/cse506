@@ -20,6 +20,8 @@
 #include <kern/time.h>
 #include <kern/pci.h>
 
+#include <kern/e1000.h>
+
 uint64_t end_debug;
 
 static void boot_aps(void);
@@ -76,7 +78,14 @@ i386_init(void)
 
 #if !defined(TEST_NO_NS)
 	// Start ns.
-	ENV_CREATE(net_ns, ENV_TYPE_NS);
+	//ENV_CREATE(net_ns, ENV_TYPE_NS);
+
+	int i;
+	for (i = 0; i < 100; i++) {
+		char *str = "0123456789";
+		e1000_transmit(str, 10);		
+	}
+
 #endif
 
 #if defined(TEST)

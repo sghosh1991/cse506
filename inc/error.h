@@ -27,6 +27,9 @@ enum {
 	E_NOT_EXEC	= 15,	// File not a valid executable
 	E_NOT_SUPP	= 16,	// Operation not supported
 
+	E_PKT_TOO_LONG  = 17,	// Data to transmit is too long to fill in a Ethernet Packet
+	E_NO_DESC	= 18, 	// No free descriptor in transmit queue
+
 	MAXERROR
 };
 
