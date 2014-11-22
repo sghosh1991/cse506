@@ -73,14 +73,6 @@ void e1000_initialize()
 
 	 *(e1000_mmio_addr + e1000_rctl/4) = e1000_rctl_en | e1000_rctl_bam | e1000_rctl_crc;
 
-	 //cprintf("MMIO Addr = %x\n", e1000_mmio_addr);
-	 //cprintf("\nRAL = %x\n", e1000_mmio_addr + e1000_rx_ral/4);
-	 //cprintf("\nRAH = %x\n", e1000_mmio_addr + e1000_rx_rah/4);
-	 //cprintf("\nRDBAL = %x\n",*(e1000_mmio_addr + e1000_rdbal/4));
-
-	// cprintf("\nTDBAL = %x\n", *(e1000_mmio_addr + e1000_tdbal/4));
-	//cprintf("\nRDLEN = %d\n", *(e1000_mmio_addr + e1000_rdlen/4)/8);
-	// cprintf("\nEthernet card initialized!\n");
 	return;
 
 }
@@ -89,7 +81,6 @@ int e1000_transmit(char *pkt_buf, uint32_t pkt_length)
 {
 
 	uint32_t tdt, next_tdt;
-	//cprintf("pkt_length=%d\n",pkt_length);
 	tdt = *(e1000_mmio_addr + e1000_tdt/4);
 	next_tdt = (tdt + 1)%BUFFER_SIZE;
 
@@ -99,16 +90,11 @@ int e1000_transmit(char *pkt_buf, uint32_t pkt_length)
 		return -E_TX_RING_FULL;
 
 	int i;
-	/*for(i=0;i<pkt_length;i++)
-	{
-		cprintf("transmit pkt=%s\n",pkt_buf[i]);	
-	}*/
 	memmove(packet_buf[tdt], pkt_buf, pkt_length);
 	tx_desc_list[tdt].length = pkt_length;
 
 	tx_desc_list[tdt].cmd |= e1000_tx_cmd_rs;
 	tx_desc_list[tdt].cmd |= e1000_tx_cmd_eop;
-	//tx_desc_list[tdt].status &= ~e1000_tx_stat_dd;
 	*(e1000_mmio_addr + e1000_tdt/4) = next_tdt;
 
 	return 0;
@@ -131,15 +117,8 @@ uint32_t rdt, next_rdt;
 	//cprintf("length :%d", rdt);
 	//cprintf("receive packet buf=%x\n",rx_packet_buf[rdt]);
 	int i;
-	/*for(i=0;i<len;i++){
-		pkt_buf[i];
-		rx_packet_buf[rdt][i];
-		cprintf("the I %d\n",i);
-	}*/
-	//cprintf("\nRDT = %d\n", rdt);
 	memmove(pkt_buf,rx_packet_buf[rdt],len);
 	rx_desc_list[rdt].status = 0x0;
-	//cprintf("in e1000.c after setting status in recv\n");
 	 *(e1000_mmio_addr + e1000_rdt/4) = next_rdt;
 	return len; 
 
