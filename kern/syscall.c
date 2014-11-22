@@ -4,7 +4,7 @@
 #include <inc/error.h>
 #include <inc/string.h>
 #include <inc/assert.h>
-
+#include<kern/e1000.h>
 #include <kern/env.h>
 #include <kern/pmap.h>
 #include <kern/trap.h>
@@ -530,9 +530,39 @@ static int
 sys_time_msec(void)
 {
 	// LAB 6: Your code here.
-	panic("sys_time_msec not implemented");
+	//panic("sys_time_msec not implemented");
+	return time_msec();
 }
 
+static int
+sys_net_e1000_transmit(char *packet, uint32_t packet_length)
+{
+	int r;
+	//cprintf("Addr %x\n",packet);
+	if((uint64_t)packet >= UTOP)
+		return -E_INVAL;
+
+	if((r = e1000_transmit(packet, packet_length)) < 0)
+		return r;
+
+	return 0;
+}
+
+// Call e1000_receive to receive the packet from helper environment, input
+static int
+sys_net_e1000_receive(char *packet)
+{
+	int r;
+	if((uint64_t)packet >= UTOP)
+		return -E_INVAL;
+	r = e1000_receive(packet);
+	
+		//cprintf("in syscall.c\n");
+	//	return r;
+	
+	return r;	
+	//panic("\nsys_net_e1000_receive not implemented\n");
+}
 
 
 // Dispatches to the correct kernel function, passing the arguments.
@@ -593,6 +623,17 @@ syscall(uint64_t syscallno, uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, 
 	case SYS_env_set_trapframe:
 		syscall_return = sys_env_set_trapframe((envid_t) a1, (struct Trapframe *)a2);
 		break;
+
+	case SYS_net_e1000_transmit:
+		syscall_return = sys_net_e1000_transmit((char *)a1, (uint32_t)a2); 
+		break;
+
+	case SYS_net_e1000_receive:
+		syscall_return = sys_net_e1000_receive((char *)a1);
+		break;
+	case SYS_time_msec:
+		syscall_return = sys_time_msec();
+		break;	
 
 	default:
 		return -E_INVAL;

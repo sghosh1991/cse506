@@ -123,3 +123,16 @@ sys_time_msec(void)
 {
 	return (unsigned int) syscall(SYS_time_msec, 0, 0, 0, 0, 0, 0);
 }
+
+int 
+sys_net_e1000_transmit(char *packet, uint32_t packet_length)
+{
+	return syscall(SYS_net_e1000_transmit, 0, (uint64_t)packet, (uint64_t)packet_length, 0, 0, 0);
+}
+
+int
+sys_net_e1000_receive(char *packet)
+{
+	return syscall(SYS_net_e1000_receive, 0, (uint64_t)packet, 0, 0, 0, 0);
+}
+
