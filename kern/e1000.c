@@ -21,7 +21,6 @@ int e1000_attach(struct pci_func *pcif)
 	e1000_mmio_addr = mmio_map_region(pcif->reg_base[0], pcif->reg_size[0]);
 	// check if we're mappped correctly
 	dev_stat_reg = *(e1000_mmio_addr + 2);
-	assert(dev_stat_reg == 0x80080783);
 
 	e1000_initialize();	
 	return 1;
@@ -41,8 +40,6 @@ void e1000_initialize()
 
 	*(e1000_mmio_addr + e1000_tctl/4) = e1000_tctl_en | e1000_tctl_psp | e1000_tctl_ct | e1000_tctl_cold;
 
-	// Using 8ns for IPGT, IPGR1 and IPGR2
-	// Getting an invalid MMIO write at this position, not sure why
 	*(e1000_mmio_addr + e1000_tipg/4) = 0x00802008;
 
 	int i;
